@@ -15,6 +15,7 @@ import {SearchPageComponent} from './search_page/search-page.component';
 import {NotFoundComponent} from './not_found/not-found.component';
 import {UserProfileComponent} from './user_profile/user-profile.component';
 import {BusinessProfileComponent} from './business_profile/business-profile.component';
+import {FbGplusApi} from './fb_gplus_api/fb-gplus-api.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import {BusinessProfileComponent} from './business_profile/business-profile.comp
         NotFoundComponent,
         UserProfileComponent,
         BusinessProfileComponent,
-        UploaderFileComponent
+        UploaderFileComponent,
+        FbGplusApi
 
     ],
     providers: [

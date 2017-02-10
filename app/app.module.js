@@ -1,4 +1,4 @@
-System.register(['@angular/core', '@angular/platform-browser', '@angular/forms', '@angular/http', './app.routing', './uploader/uploader.component', './_guards/guards', './app.component', './_directives/equal-validator.directive', './register/authorization-form.component', './login/login-form.component', './search_page/search-page.component', './not_found/not-found.component', './user_profile/user-profile.component', './business_profile/business-profile.component'], function(exports_1, context_1) {
+System.register(['@angular/core', '@angular/platform-browser', '@angular/forms', '@angular/http', './app.routing', './uploader/uploader.component', './_guards/guards', './app.component', './_directives/equal-validator.directive', './register/authorization-form.component', './login/login-form.component', './search_page/search-page.component', './not_found/not-found.component', './user_profile/user-profile.component', './business_profile/business-profile.component', './fb_gplus_api/fb-gplus-api.component'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['@angular/core', '@angular/platform-browser', '@angular/forms',
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, platform_browser_1, forms_1, http_1, app_routing_1, uploader_component_1, guards_1, app_component_1, equal_validator_directive_1, authorization_form_component_1, login_form_component_1, search_page_component_1, not_found_component_1, user_profile_component_1, business_profile_component_1;
+    var core_1, platform_browser_1, forms_1, http_1, app_routing_1, uploader_component_1, guards_1, app_component_1, equal_validator_directive_1, authorization_form_component_1, login_form_component_1, search_page_component_1, not_found_component_1, user_profile_component_1, business_profile_component_1, fb_gplus_api_component_1;
     var AppModule;
     return {
         setters:[
@@ -58,6 +58,9 @@ System.register(['@angular/core', '@angular/platform-browser', '@angular/forms',
             },
             function (business_profile_component_1_1) {
                 business_profile_component_1 = business_profile_component_1_1;
+            },
+            function (fb_gplus_api_component_1_1) {
+                fb_gplus_api_component_1 = fb_gplus_api_component_1_1;
             }],
         execute: function() {
             AppModule = (function () {
@@ -80,7 +83,8 @@ System.register(['@angular/core', '@angular/platform-browser', '@angular/forms',
                             not_found_component_1.NotFoundComponent,
                             user_profile_component_1.UserProfileComponent,
                             business_profile_component_1.BusinessProfileComponent,
-                            uploader_component_1.UploaderFileComponent
+                            uploader_component_1.UploaderFileComponent,
+                            fb_gplus_api_component_1.FbGplusApi
                         ],
                         providers: [
                             guards_1.AuthGuard

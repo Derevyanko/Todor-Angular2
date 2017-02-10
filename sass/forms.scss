@@ -41,6 +41,7 @@ form {
     margin: 15px 0;
     padding: 15px;
     text-align: center;
+    font-weight: bold;
     font-family: $general-font;
     color: #fff;
     outline: none;
@@ -71,6 +72,28 @@ form {
     &:hover,
     &:focus {
       background-color: #667D32;
+    }
+  }
+
+  .btn-fb,
+  .btn-gplus {
+    margin-bottom: 0;
+    text-transform: none;
+  }
+
+  .btn-fb {
+    background-color: #5C6DBE;
+    &:hover,
+    &:focus {
+      background-color: darken(#5C6DBE, 10%);
+    }
+  }
+
+  .btn-gplus {
+    background-color: #C94536;
+    &:hover,
+    &:focus {
+      background-color: darken(#C94536, 10%);
     }
   }
 }

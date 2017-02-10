@@ -12,6 +12,7 @@
 		</div>
 		<button type="submit" [disabled]="name.invalid || password.invalid" class="btn btn-green" (click)="login(user)">Log in</button>
 		<a class = "form-link" [routerLink]="['/signin']">You don't have an account?</a>
+		<fb-gplus-api></fb-gplus-api>
 		<!--<pre>submitted value: <br>{{loginform.value | json}}</pre>-->
 	</form>
 	<br>

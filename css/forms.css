@@ -47,6 +47,7 @@ form .btn {
   margin: 15px 0;
   padding: 15px;
   text-align: center;
+  font-weight: bold;
   font-family: "Lato", sans-serif;
   color: #fff;
   outline: none;
@@ -54,41 +55,63 @@ form .btn {
   text-transform: uppercase;
   font-size: 16px;
 }
-/* line 50, ../sass/forms.scss */
+/* line 51, ../sass/forms.scss */
 form .btn:hover, form .btn:focus {
   outline: none;
   background-color: #872a2a;
   border: 0;
   color: #fff;
 }
-/* line 58, ../sass/forms.scss */
+/* line 59, ../sass/forms.scss */
 form .btn[disabled] {
   /*cursor:pointer;*/
   background-color: #e0494a;
 }
-/* line 61, ../sass/forms.scss */
+/* line 62, ../sass/forms.scss */
 form .btn[disabled]:hover {
   background-color: #872a2a;
 }
 
-/* line 68, ../sass/forms.scss */
+/* line 69, ../sass/forms.scss */
 .loginform .btn,
 .loginform .btn[disabled] {
   background-color: #abd154;
 }
-/* line 71, ../sass/forms.scss */
+/* line 72, ../sass/forms.scss */
 .loginform .btn:hover, .loginform .btn:focus,
 .loginform .btn[disabled]:hover,
 .loginform .btn[disabled]:focus {
   background-color: #667D32;
 }
-
 /* line 78, ../sass/forms.scss */
+.loginform .btn-fb,
+.loginform .btn-gplus {
+  margin-bottom: 0;
+  text-transform: none;
+}
+/* line 84, ../sass/forms.scss */
+.loginform .btn-fb {
+  background-color: #5C6DBE;
+}
+/* line 86, ../sass/forms.scss */
+.loginform .btn-fb:hover, .loginform .btn-fb:focus {
+  background-color: #4253a5;
+}
+/* line 92, ../sass/forms.scss */
+.loginform .btn-gplus {
+  background-color: #C94536;
+}
+/* line 94, ../sass/forms.scss */
+.loginform .btn-gplus:hover, .loginform .btn-gplus:focus {
+  background-color: #a1372b;
+}
+
+/* line 101, ../sass/forms.scss */
 input {
   cursor: pointer;
 }
 
-/* line 82, ../sass/forms.scss */
+/* line 105, ../sass/forms.scss */
 input[name="username"] {
   outline: none;
   background: url("../img/user.png") no-repeat;
@@ -99,7 +122,7 @@ input[name="username"] {
   /*background-size: 6%;*/
 }
 
-/* line 92, ../sass/forms.scss */
+/* line 115, ../sass/forms.scss */
 input[type="password"] {
   outline: none;
   background: url("../img/pass.png") no-repeat;
@@ -110,7 +133,7 @@ input[type="password"] {
   /*background-size: 5%;*/
 }
 
-/* line 102, ../sass/forms.scss */
+/* line 125, ../sass/forms.scss */
 input[type="email"] {
   outline: none;
   background: url("../img/mail.png") no-repeat;
@@ -120,7 +143,7 @@ input[type="email"] {
   background-size: 35px;
 }
 
-/* line 112, ../sass/forms.scss */
+/* line 135, ../sass/forms.scss */
 .form-link {
   text-align: center;
   color: #bfc1c3;
@@ -128,12 +151,12 @@ input[type="email"] {
   text-transform: uppercase;
   font-size: 11px;
 }
-/* line 118, ../sass/forms.scss */
+/* line 141, ../sass/forms.scss */
 .form-link:hover {
   color: #fff;
 }
 
-/* line 123, ../sass/forms.scss */
+/* line 146, ../sass/forms.scss */
 input[name="login-name"] {
   outline: none;
   background: url("../img/user-green.png") no-repeat;
@@ -143,7 +166,7 @@ input[name="login-name"] {
   background-size: 6%;
 }
 
-/* line 132, ../sass/forms.scss */
+/* line 155, ../sass/forms.scss */
 input[name="login-password"] {
   outline: none;
   background: url("../img/pass-green.png") no-repeat;
@@ -155,7 +178,7 @@ input[name="login-password"] {
 }
 
 /*//////////////////////business profile///////////////////////*/
-/* line 143, ../sass/forms.scss */
+/* line 166, ../sass/forms.scss */
 .business-profile-container,
 .user-profile-container {
   background-color: rgba(127, 135, 138, 0.5);
@@ -163,12 +186,12 @@ input[name="login-password"] {
   margin: 0 auto;
   border-radius: 7px;
 }
-/* line 149, ../sass/forms.scss */
+/* line 172, ../sass/forms.scss */
 .business-profile-container h2,
 .user-profile-container h2 {
   text-align: center;
 }
-/* line 152, ../sass/forms.scss */
+/* line 175, ../sass/forms.scss */
 .business-profile-container .business-profile,
 .business-profile-container .user-profile,
 .user-profile-container .business-profile,
@@ -177,7 +200,7 @@ input[name="login-password"] {
   margin: 0 auto;
   padding-bottom: 45px;
 }
-/* line 157, ../sass/forms.scss */
+/* line 180, ../sass/forms.scss */
 .business-profile-container .business-profile .form-group,
 .business-profile-container .user-profile .form-group,
 .user-profile-container .business-profile .form-group,
@@ -195,7 +218,7 @@ input[name="login-password"] {
   -ms-flex-pack: justify;
   justify-content: space-between;
 }
-/* line 170, ../sass/forms.scss */
+/* line 193, ../sass/forms.scss */
 .business-profile-container .business-profile .form-group input,
 .business-profile-container .user-profile .form-group input,
 .user-profile-container .business-profile .form-group input,
@@ -206,14 +229,14 @@ input[name="login-password"] {
   background-color: #fff;
   background-position: 15px;
 }
-/* line 178, ../sass/forms.scss */
+/* line 201, ../sass/forms.scss */
 .business-profile-container .business-profile .form-group .business-load-file input,
 .business-profile-container .user-profile .form-group .business-load-file input,
 .user-profile-container .business-profile .form-group .business-load-file input,
 .user-profile-container .user-profile .form-group .business-load-file input {
   width: 100%;
 }
-/* line 183, ../sass/forms.scss */
+/* line 206, ../sass/forms.scss */
 .business-profile-container .business-profile textarea,
 .business-profile-container .user-profile textarea,
 .user-profile-container .business-profile textarea,
@@ -228,7 +251,7 @@ input[name="login-password"] {
   background-color: #fff;
   background-position: 18px 6px;
 }
-/* line 194, ../sass/forms.scss */
+/* line 217, ../sass/forms.scss */
 .business-profile-container .business-profile input[type="email"],
 .business-profile-container .user-profile input[type="email"],
 .user-profile-container .business-profile input[type="email"],
@@ -239,14 +262,14 @@ input[name="login-password"] {
   background-position: 15px;
 }
 
-/* line 204, ../sass/forms.scss */
+/* line 227, ../sass/forms.scss */
 input[name="business-name"],
 input[name="uname"] {
   background: url("../img/icons/user.svg") no-repeat;
   background-size: 8%;
 }
 
-/* line 210, ../sass/forms.scss */
+/* line 233, ../sass/forms.scss */
 input[name="street"],
 input[name="adress"] {
   background: url("../img/icons/street.svg") no-repeat;
@@ -254,49 +277,49 @@ input[name="adress"] {
   height: 54px;
 }
 
-/* line 217, ../sass/forms.scss */
+/* line 240, ../sass/forms.scss */
 input[name="city"] {
   background: url("../img/icons/city.svg") no-repeat;
   background-size: 9%;
 }
 
-/* line 222, ../sass/forms.scss */
+/* line 245, ../sass/forms.scss */
 input[name="zip"] {
   background: url("../img/icons/zip-code.svg") no-repeat;
   background-size: 11%;
 }
 
-/* line 227, ../sass/forms.scss */
+/* line 250, ../sass/forms.scss */
 input[name="phone"] {
   background: url("../img/icons/phone.svg") no-repeat;
   background-size: 9%;
 }
 
-/* line 232, ../sass/forms.scss */
+/* line 255, ../sass/forms.scss */
 input[name="fax"] {
   background: url("../img/icons/phone.svg") no-repeat;
   background-size: 9%;
 }
 
-/* line 237, ../sass/forms.scss */
+/* line 260, ../sass/forms.scss */
 input[name="website"] {
   background: url("../img/icons/website.svg") no-repeat;
   background-size: 12%;
 }
 
-/* line 242, ../sass/forms.scss */
+/* line 265, ../sass/forms.scss */
 input[name="category"] {
   background: url("../img/icons/business-category.svg") no-repeat;
   background-size: 9%;
 }
 
-/* line 247, ../sass/forms.scss */
+/* line 270, ../sass/forms.scss */
 textarea[name="bdescription"] {
   background: url("../img/icons/business-description.svg") no-repeat;
   background-size: 4%;
 }
 
-/* line 252, ../sass/forms.scss */
+/* line 275, ../sass/forms.scss */
 input[name="business-photo"],
 input[name="user-photo"] {
   background: url("../img/icons/business-photo.svg") no-repeat;
@@ -304,26 +327,26 @@ input[name="user-photo"] {
   z-index: 2;
 }
 
-/* line 259, ../sass/forms.scss */
+/* line 282, ../sass/forms.scss */
 input[name="user-photo"] {
   width: 100% !important;
 }
 
-/* line 263, ../sass/forms.scss */
+/* line 286, ../sass/forms.scss */
 input[name="business-logo"] {
   background: url("../img/icons/business-logo.svg") no-repeat;
   background-size: 9%;
   z-index: 2;
 }
 
-/* line 269, ../sass/forms.scss */
+/* line 292, ../sass/forms.scss */
 .form-btn {
   width: 30%;
   margin: 0 auto;
 }
 
 /*//////////////////////user profile///////////////////////*/
-/* line 275, ../sass/forms.scss */
+/* line 298, ../sass/forms.scss */
 h4 {
   font-family: "Lato", sans-serif;
   color: #fff;
@@ -332,13 +355,13 @@ h4 {
   text-align: center;
 }
 
-/* line 284, ../sass/forms.scss */
+/* line 307, ../sass/forms.scss */
 .user-profile .form-link {
   font-size: 12px;
   /*line-height: 8;*/
   text-transform: none;
 }
-/* line 289, ../sass/forms.scss */
+/* line 312, ../sass/forms.scss */
 .user-profile input[type="date"],
 .user-profile select {
   height: 54px;
@@ -348,14 +371,14 @@ h4 {
   -moz-appearance: none;
 }
 
-/* line 299, ../sass/forms.scss */
+/* line 322, ../sass/forms.scss */
 textarea[name="bio"] {
   background: url("../img/icons/bio.svg") no-repeat;
   background-size: 4%;
   background-position: 18px 0px;
 }
 
-/* line 305, ../sass/forms.scss */
+/* line 328, ../sass/forms.scss */
 select[name="gender"] {
   background: url("../img/icons/gender.svg") no-repeat;
   background-size: 12%;
@@ -363,7 +386,7 @@ select[name="gender"] {
   background-position: 15px;
 }
 
-/* line 312, ../sass/forms.scss */
+/* line 335, ../sass/forms.scss */
 input[name="birthday"] {
   background: url("../img/icons/birthday.svg") no-repeat;
   background-size: 9%;
