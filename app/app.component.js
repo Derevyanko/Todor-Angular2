@@ -92,10 +92,9 @@ System.register(['@angular/core', './_services/http.service', '@angular/common']
                         templateUrl: './app.component.html',
                         providers: [http_service_1.HttpService, http_service_1.HttpService]
                     }), 
-                    __metadata('design:paramtypes', [(typeof (_a = typeof common_1.Location !== 'undefined' && common_1.Location) === 'function' && _a) || Object])
+                    __metadata('design:paramtypes', [common_1.Location])
                 ], AppComponent);
                 return AppComponent;
-                var _a;
             }());
             exports_1("AppComponent", AppComponent);
         }

@@ -63,6 +63,7 @@ System.register(['@angular/core', '@angular/platform-browser', '@angular/forms',
                 fb_gplus_api_component_1 = fb_gplus_api_component_1_1;
             }],
         execute: function() {
+            //import { FacebookService } from 'ng2-facebook-sdk';
             AppModule = (function () {
                 function AppModule() {
                 }
@@ -84,7 +85,7 @@ System.register(['@angular/core', '@angular/platform-browser', '@angular/forms',
                             user_profile_component_1.UserProfileComponent,
                             business_profile_component_1.BusinessProfileComponent,
                             uploader_component_1.UploaderFileComponent,
-                            fb_gplus_api_component_1.FbGplusApi
+                            fb_gplus_api_component_1.FbGplusApiComponent
                         ],
                         providers: [
                             guards_1.AuthGuard

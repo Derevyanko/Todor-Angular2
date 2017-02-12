@@ -1,7 +1,6 @@
 import {NgModule}      from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {FormsModule}   from '@angular/forms';
-//import {Routes, RouterModule} from '@angular/router';
 import {HttpModule}   from '@angular/http';
 import {routing}        from './app.routing';
 
@@ -15,8 +14,9 @@ import {SearchPageComponent} from './search_page/search-page.component';
 import {NotFoundComponent} from './not_found/not-found.component';
 import {UserProfileComponent} from './user_profile/user-profile.component';
 import {BusinessProfileComponent} from './business_profile/business-profile.component';
-import {FbGplusApi} from './fb_gplus_api/fb-gplus-api.component';
+import {FbGplusApiComponent} from './fb_gplus_api/fb-gplus-api.component';
 
+//import { FacebookService } from 'ng2-facebook-sdk';
 
 @NgModule({
     imports: [
@@ -24,7 +24,6 @@ import {FbGplusApi} from './fb_gplus_api/fb-gplus-api.component';
         FormsModule,
         HttpModule,
         routing
-
     ],
     declarations: [
         EqualValidator,
@@ -36,15 +35,13 @@ import {FbGplusApi} from './fb_gplus_api/fb-gplus-api.component';
         UserProfileComponent,
         BusinessProfileComponent,
         UploaderFileComponent,
-        FbGplusApi
-
+        FbGplusApiComponent
     ],
     providers: [
         AuthGuard
+        //FacebookService
     ],
 
     bootstrap: [AppComponent]
 })
-export class AppModule {
-}
-
+export class AppModule {}

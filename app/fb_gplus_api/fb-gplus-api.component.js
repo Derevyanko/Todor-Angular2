@@ -11,26 +11,27 @@ System.register(['@angular/core'], function(exports_1, context_1) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var core_1;
-    var FbGplusApi;
+    var FbGplusApiComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
             }],
         execute: function() {
-            FbGplusApi = (function () {
-                function FbGplusApi() {
+            //import {FacebookService, FacebookInitParams, FacebookLoginResponse} from 'ng2-facebook-sdk';
+            FbGplusApiComponent = (function () {
+                function FbGplusApiComponent() {
                 }
-                FbGplusApi = __decorate([
+                FbGplusApiComponent = __decorate([
                     core_1.Component({
                         selector: 'fb-gplus-api',
-                        template: "\n\t\t<div class=\"fb-gplus-api\">\n\t\t\t<button type=\"submit\" class=\"btn btn-fb\">Log in with Facebook</button>\n\t\t\t<button type=\"submit\" class=\"btn btn-gplus\">Sign in with Google +</button>\n\t\t</div>\n    "
+                        template: "\n\t\t<div class=\"fb-gplus-api\">\n\t\t\t<button type=\"submit\" class=\"btn btn-fb\" (click)=\"loginFB()\">Log in with Facebook</button>\n\t\t\t<button type=\"submit\" class=\"btn btn-gplus\">Sign in with Google +</button>\n\t\t</div>\n\t"
                     }), 
                     __metadata('design:paramtypes', [])
-                ], FbGplusApi);
-                return FbGplusApi;
+                ], FbGplusApiComponent);
+                return FbGplusApiComponent;
             }());
-            exports_1("FbGplusApi", FbGplusApi);
+            exports_1("FbGplusApiComponent", FbGplusApiComponent);
         }
     }
 });
