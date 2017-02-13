@@ -16,7 +16,7 @@ import {UserProfileComponent} from './user_profile/user-profile.component';
 import {BusinessProfileComponent} from './business_profile/business-profile.component';
 import {FbGplusApiComponent} from './fb_gplus_api/fb-gplus-api.component';
 
-//import { FacebookService } from 'ng2-facebook-sdk';
+import { FacebookService } from 'ng2-facebook-sdk';
 
 @NgModule({
     imports: [
@@ -38,8 +38,8 @@ import {FbGplusApiComponent} from './fb_gplus_api/fb-gplus-api.component';
         FbGplusApiComponent
     ],
     providers: [
-        AuthGuard
-        //FacebookService
+        AuthGuard,
+        FacebookService
     ],
 
     bootstrap: [AppComponent]

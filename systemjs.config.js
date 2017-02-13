@@ -50,6 +50,7 @@
             'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js',
             'ts':                        'npm:plugin-typescript@4.0.10/lib/plugin.js',
             'typescript':                'npm:typescript@2.0.3/lib/typescript.js',
+            'ng2-facebook-sdk':          'npm:ng2-facebook-sdk@1.2.0/dist/ng2-facebook-sdk.js'
 
         },
         // packages tells the System loader how to load when no filename and/or no extension
