@@ -1,6 +1,5 @@
-System.register(['@angular/core', './_services/http.service', '@angular/common'], function(exports_1, context_1) {
+System.register(["@angular/core", "./_services/http.service", "@angular/common"], function (exports_1, context_1) {
     "use strict";
-    var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -10,10 +9,10 @@ System.register(['@angular/core', './_services/http.service', '@angular/common']
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, http_service_1, common_1;
-    var AppComponent;
+    var __moduleName = context_1 && context_1.id;
+    var core_1, http_service_1, common_1, AppComponent;
     return {
-        setters:[
+        setters: [
             function (core_1_1) {
                 core_1 = core_1_1;
             },
@@ -22,8 +21,9 @@ System.register(['@angular/core', './_services/http.service', '@angular/common']
             },
             function (common_1_1) {
                 common_1 = common_1_1;
-            }],
-        execute: function() {
+            }
+        ],
+        execute: function () {
             AppComponent = (function () {
                 function AppComponent(location) {
                     this.location = location;
@@ -84,20 +84,20 @@ System.register(['@angular/core', './_services/http.service', '@angular/common']
                         }
                     });
                 };
-                AppComponent = __decorate([
-                    core_1.Component({
-                        moduleId: module.id,
-                        selector: 'my-app',
-                        styles: [" \n        .active a {\n        color:#fff;\n        }\n    "],
-                        templateUrl: './app.component.html',
-                        providers: [http_service_1.HttpService, http_service_1.HttpService]
-                    }), 
-                    __metadata('design:paramtypes', [common_1.Location])
-                ], AppComponent);
                 return AppComponent;
             }());
+            AppComponent = __decorate([
+                core_1.Component({
+                    moduleId: module.id,
+                    selector: 'my-app',
+                    styles: [" \n        .active a {\n        color:#fff;\n        }\n    "],
+                    templateUrl: './app.component.html',
+                    providers: [http_service_1.HttpService, http_service_1.HttpService]
+                }),
+                __metadata("design:paramtypes", [common_1.Location])
+            ], AppComponent);
             exports_1("AppComponent", AppComponent);
         }
-    }
+    };
 });
 //# sourceMappingURL=app.component.js.map

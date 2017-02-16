@@ -1,12 +1,9 @@
 import { Component } from '@angular/core';
+import { GoogleSignInSuccess } from 'angular-google-signin';
 import { Router } from '@angular/router';
-import {FacebookService, FacebookInitParams, FacebookLoginResponse} from 'ng2-facebook-sdk';
-
-/*import {Google} from 'ng2-cordova-oauth/core';
-import {OauthBrowser} from 'ng2-cordova-oauth/platform/browser';*/
-
-import {HttpAddUserService} from '../_services/http-add-user.service';
-import {GeneratePwdService} from '../_services/generate-pwd.service';
+import { FacebookService, FacebookInitParams, FacebookLoginResponse } from 'ng2-facebook-sdk';
+import { HttpAddUserService } from '../_services/http-add-user.service';
+import { GeneratePwdService } from '../_services/generate-pwd.service';
 import { AddUser } from '../_models/adduser';
 
 @Component({
@@ -14,19 +11,20 @@ import { AddUser } from '../_models/adduser';
 	template: `
 		<div class="fb-gplus-api">
 			<button type="submit" class="btn btn-fb" (click)="loginFB()">Log in with Facebook</button>
-			<button type="submit" class="btn btn-gplus" (click)="loginGPlus()">Sign in with Google +</button>
+			<google-signin
+				clientId="309462390088-gjbirnlkpg403h9oph93sngsir4jigna.apps.googleusercontent.com"
+				width="300"
+				theme="dark"
+				scope="email profile"
+				longTitle="true"
+				(googleSignInSuccess)="onGoogleSignInSuccess($event)">
+			</google-signin>
 		</div>
 	`,
 	providers: [HttpAddUserService, GeneratePwdService]
 })
 export class FbGplusApiComponent {
 
-	/*private oauth: OauthBrowser = new OauthBrowser();
-	private googleProvider: Google = new Google({
-		clientId: 'CLIENT_ID_HERE',
-		appScope: ['email']
-	});
-*/
 	constructor(private fb: FacebookService,
 				private httpReg: HttpAddUserService,
 				private randomPas: GeneratePwdService,
@@ -39,6 +37,7 @@ export class FbGplusApiComponent {
 		this.fb.init(fbParams);
 	}
 
+	/* Log in Facebook */
 	loginFB() {
 		this.fb.login()
 			.then((res: FacebookLoginResponse) => {
@@ -48,14 +47,12 @@ export class FbGplusApiComponent {
 					this.fb.api('me?fields=id,name,email')
 						.then(res => {
 							let pwd = this.randomPas.generatePwd(8);
-							console.log(pwd);
-							console.log('fbUserInfo: ', res);
 							let user: AddUser = new AddUser();
 							user.username = res.name;
 							user.email = res.email;
 							user.password = pwd;
 							user.confirmPassword = pwd;
-							console.log('User: ', user);
+							console.log('User-temp: ', user);
 							return user;
 						})
 						.then(obj => {
@@ -79,12 +76,27 @@ export class FbGplusApiComponent {
 			.catch(error => { console.log(error); });
 	}
 
-	/*loginGPlus() {
-		this.oauth.logInVia(this.googleProvider)
-			.then(success => {
-				console.log("RESULT: " + JSON.stringify(success));
-			}, error => {
-				console.log("ERROR: ", error);
-			});
-	}*/
+	/* Log in Google+ */
+	private myClientId: string = '309462390088-gjbirnlkpg403h9oph93sngsir4jigna.apps.googleusercontent.com';
+
+	onGoogleSignInSuccess(event: GoogleSignInSuccess) {
+	    let googleUser: gapi.auth2.GoogleUser = event.googleUser;
+	    let profile: gapi.auth2.BasicProfile = googleUser.getBasicProfile();
+	    let pwd = this.randomPas.generatePwd(8);
+	    let user: AddUser = new AddUser();
+	    user.username = profile.getName();
+	    user.email = profile.getEmail();
+	    user.password = pwd;
+	    user.confirmPassword = pwd;
+	    console.log("user_gp: ", user);
+	    this.httpReg.postData(user)
+	    	.subscribe(
+	    		data => {
+	    			alert("Log in success! Welcome " + data.username + "!");
+					this.router.navigate(['/search']);
+	    		},
+	    		error => {
+	    			alert("Sign in is not success. Repeat please.");
+	    	});
+	}
 }

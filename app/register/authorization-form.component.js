@@ -1,6 +1,5 @@
-System.register(['@angular/core', '../_models/adduser', '../_services/http-add-user.service', '@angular/router'], function(exports_1, context_1) {
+System.register(["@angular/core", "../_models/adduser", "../_services/http-add-user.service", "@angular/router"], function (exports_1, context_1) {
     "use strict";
-    var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -10,10 +9,10 @@ System.register(['@angular/core', '../_models/adduser', '../_services/http-add-u
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, adduser_1, http_add_user_service_1, router_1;
-    var AuthorizationFormComponent;
+    var __moduleName = context_1 && context_1.id;
+    var core_1, adduser_1, http_add_user_service_1, router_1, AuthorizationFormComponent;
     return {
-        setters:[
+        setters: [
             function (core_1_1) {
                 core_1 = core_1_1;
             },
@@ -25,8 +24,9 @@ System.register(['@angular/core', '../_models/adduser', '../_services/http-add-u
             },
             function (router_1_1) {
                 router_1 = router_1_1;
-            }],
-        execute: function() {
+            }
+        ],
+        execute: function () {
             AuthorizationFormComponent = (function () {
                 function AuthorizationFormComponent(httpAddUserService, router) {
                     this.httpAddUserService = httpAddUserService;
@@ -43,19 +43,20 @@ System.register(['@angular/core', '../_models/adduser', '../_services/http-add-u
                         alert("Registration is not success. Repeat please.");
                     });
                 };
-                AuthorizationFormComponent = __decorate([
-                    core_1.Component({
-                        moduleId: module.id,
-                        selector: 'authorization-form',
-                        templateUrl: 'authorization-form.component.html',
-                        providers: [http_add_user_service_1.HttpAddUserService]
-                    }), 
-                    __metadata('design:paramtypes', [http_add_user_service_1.HttpAddUserService, router_1.Router])
-                ], AuthorizationFormComponent);
                 return AuthorizationFormComponent;
             }());
+            AuthorizationFormComponent = __decorate([
+                core_1.Component({
+                    moduleId: module.id,
+                    selector: 'authorization-form',
+                    templateUrl: 'authorization-form.component.html',
+                    providers: [http_add_user_service_1.HttpAddUserService]
+                }),
+                __metadata("design:paramtypes", [http_add_user_service_1.HttpAddUserService,
+                    router_1.Router])
+            ], AuthorizationFormComponent);
             exports_1("AuthorizationFormComponent", AuthorizationFormComponent);
         }
-    }
+    };
 });
 //# sourceMappingURL=authorization-form.component.js.map

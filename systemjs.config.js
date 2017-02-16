@@ -51,9 +51,7 @@
             'ts':                                       'npm:plugin-typescript@4.0.10/lib/plugin.js',
             'typescript':                               'npm:typescript@2.0.3/lib/typescript.js',
             'ng2-facebook-sdk':                         'npm:ng2-facebook-sdk@1.2.0/dist/ng2-facebook-sdk.js',
-            'ng2-cordova-oauth':                        'npm:ng2-cordova-oauth@0.0.8/oauth.js',
-            'ng2-cordova-oauth/core':                   'npm:ng2-cordova-oauth@0.0.8/core.js',
-            'ng2-cordova-oauth/platform/browser':       'npm:ng2-cordova-oauth@0.0.8/platform/browser.js'
+            'angular-google-signin':                    'npm:angular-google-signin@0.1.5'
 
         },
         // packages tells the System loader how to load when no filename and/or no extension

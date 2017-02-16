@@ -15,6 +15,7 @@ import {NotFoundComponent} from './not_found/not-found.component';
 import {UserProfileComponent} from './user_profile/user-profile.component';
 import {BusinessProfileComponent} from './business_profile/business-profile.component';
 import {FbGplusApiComponent} from './fb_gplus_api/fb-gplus-api.component';
+import {GoogleSignInComponent} from 'angular-google-signin';
 
 import { FacebookService } from 'ng2-facebook-sdk';
 
@@ -35,7 +36,8 @@ import { FacebookService } from 'ng2-facebook-sdk';
         UserProfileComponent,
         BusinessProfileComponent,
         UploaderFileComponent,
-        FbGplusApiComponent
+        FbGplusApiComponent,
+        GoogleSignInComponent
     ],
     providers: [
         AuthGuard,

@@ -1,10 +1,9 @@
-System.register(['@angular/router', './_guards/guards', './register/authorization-form.component', './login/login-form.component', './search_page/search-page.component', './not_found/not-found.component', './user_profile/user-profile.component', './business_profile/business-profile.component'], function(exports_1, context_1) {
+System.register(["@angular/router", "./_guards/guards", "./register/authorization-form.component", "./login/login-form.component", "./search_page/search-page.component", "./not_found/not-found.component", "./user_profile/user-profile.component", "./business_profile/business-profile.component"], function (exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
-    var router_1, guards_1, authorization_form_component_1, login_form_component_1, search_page_component_1, not_found_component_1, user_profile_component_1, business_profile_component_1;
-    var appRoutes, routing;
+    var router_1, guards_1, authorization_form_component_1, login_form_component_1, search_page_component_1, not_found_component_1, user_profile_component_1, business_profile_component_1, appRoutes, routing;
     return {
-        setters:[
+        setters: [
             function (router_1_1) {
                 router_1 = router_1_1;
             },
@@ -28,8 +27,9 @@ System.register(['@angular/router', './_guards/guards', './register/authorizatio
             },
             function (business_profile_component_1_1) {
                 business_profile_component_1 = business_profile_component_1_1;
-            }],
-        execute: function() {
+            }
+        ],
+        execute: function () {
             appRoutes = [
                 { path: '', redirectTo: '/search', pathMatch: 'full' },
                 { path: 'search', component: search_page_component_1.SearchPageComponent },
@@ -41,10 +41,10 @@ System.register(['@angular/router', './_guards/guards', './register/authorizatio
                 { path: '**', component: not_found_component_1.NotFoundComponent }
             ];
             exports_1("routing", routing = router_1.RouterModule.forRoot(appRoutes));
+            /**
+             * Created by D on 26.01.2017.
+             */
         }
-    }
+    };
 });
-/**
- * Created by D on 26.01.2017.
- */
 //# sourceMappingURL=app.routing.js.map
