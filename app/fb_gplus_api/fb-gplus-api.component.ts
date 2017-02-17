@@ -89,7 +89,8 @@ export class FbGplusApiComponent {
 	    user.password = pwd;
 	    user.confirmPassword = pwd;
 	    console.log("user_gp: ", user);
-	    this.httpReg.postData(user)
+	    
+	    /*this.httpReg.postData(user)
 	    	.subscribe(
 	    		data => {
 	    			alert("Log in success! Welcome " + data.username + "!");
@@ -97,6 +98,6 @@ export class FbGplusApiComponent {
 	    		},
 	    		error => {
 	    			alert("Sign in is not success. Repeat please.");
-	    	});
+	    	});*/
 	}
 }

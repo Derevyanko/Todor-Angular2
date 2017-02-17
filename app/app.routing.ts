@@ -20,7 +20,7 @@ const appRoutes: Routes =[
 
 ];
 
-export const routing = RouterModule.forRoot(appRoutes);
+export const ROUTING = RouterModule.forRoot(appRoutes);
 
 /**
  * Created by D on 26.01.2017.

@@ -1,5 +1,6 @@
-System.register(["@angular/core", "@angular/router", "../_services/http.service", "../_models/user"], function (exports_1, context_1) {
+System.register(['@angular/core', '@angular/router', '../_services/http.service', '../_models/user'], function(exports_1, context_1) {
     "use strict";
+    var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -9,10 +10,10 @@ System.register(["@angular/core", "@angular/router", "../_services/http.service"
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var __moduleName = context_1 && context_1.id;
-    var core_1, router_1, http_service_1, user_1, LoginFormComponent;
+    var core_1, router_1, http_service_1, user_1;
+    var LoginFormComponent;
     return {
-        setters: [
+        setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
             },
@@ -24,9 +25,8 @@ System.register(["@angular/core", "@angular/router", "../_services/http.service"
             },
             function (user_1_1) {
                 user_1 = user_1_1;
-            }
-        ],
-        execute: function () {
+            }],
+        execute: function() {
             LoginFormComponent = (function () {
                 function LoginFormComponent(httpService, router) {
                     this.httpService = httpService;
@@ -50,23 +50,22 @@ System.register(["@angular/core", "@angular/router", "../_services/http.service"
                         }
                     });
                 };
+                LoginFormComponent = __decorate([
+                    core_1.Component({
+                        moduleId: module.id,
+                        selector: 'login-form',
+                        templateUrl: 'login-form.component.html',
+                        providers: [http_service_1.HttpService]
+                    }), 
+                    __metadata('design:paramtypes', [http_service_1.HttpService, router_1.Router])
+                ], LoginFormComponent);
                 return LoginFormComponent;
             }());
-            LoginFormComponent = __decorate([
-                core_1.Component({
-                    moduleId: module.id,
-                    selector: 'login-form',
-                    templateUrl: 'login-form.component.html',
-                    providers: [http_service_1.HttpService]
-                }),
-                __metadata("design:paramtypes", [http_service_1.HttpService,
-                    router_1.Router])
-            ], LoginFormComponent);
             exports_1("LoginFormComponent", LoginFormComponent);
-            /**
-             * Created by D on 18.01.2017.
-             */ 
         }
-    };
+    }
 });
+/**
+ * Created by D on 18.01.2017.
+ */ 
 //# sourceMappingURL=login-form.component.js.map

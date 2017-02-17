@@ -2,7 +2,7 @@ import {NgModule}      from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {FormsModule}   from '@angular/forms';
 import {HttpModule}   from '@angular/http';
-import {routing}        from './app.routing';
+import {ROUTING}        from './app.routing';
 
 import {UploaderFileComponent} from './uploader/uploader.component'
 import {AuthGuard} from './_guards/guards';
@@ -24,7 +24,7 @@ import { FacebookService } from 'ng2-facebook-sdk';
         BrowserModule,
         FormsModule,
         HttpModule,
-        routing
+        ROUTING
     ],
     declarations: [
         EqualValidator,

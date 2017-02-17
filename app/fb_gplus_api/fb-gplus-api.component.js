@@ -1,5 +1,6 @@
-System.register(["@angular/core", "@angular/router", "ng2-facebook-sdk", "../_services/http-add-user.service", "../_services/generate-pwd.service", "../_models/adduser"], function (exports_1, context_1) {
+System.register(['@angular/core', '@angular/router', 'ng2-facebook-sdk', '../_services/http-add-user.service', '../_services/generate-pwd.service', '../_models/adduser'], function(exports_1, context_1) {
     "use strict";
+    var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -9,10 +10,10 @@ System.register(["@angular/core", "@angular/router", "ng2-facebook-sdk", "../_se
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var __moduleName = context_1 && context_1.id;
-    var core_1, router_1, ng2_facebook_sdk_1, http_add_user_service_1, generate_pwd_service_1, adduser_1, FbGplusApiComponent;
+    var core_1, router_1, ng2_facebook_sdk_1, http_add_user_service_1, generate_pwd_service_1, adduser_1;
+    var FbGplusApiComponent;
     return {
-        setters: [
+        setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
             },
@@ -30,9 +31,8 @@ System.register(["@angular/core", "@angular/router", "ng2-facebook-sdk", "../_se
             },
             function (adduser_1_1) {
                 adduser_1 = adduser_1_1;
-            }
-        ],
-        execute: function () {
+            }],
+        execute: function() {
             FbGplusApiComponent = (function () {
                 function FbGplusApiComponent(fb, httpReg, randomPas, router) {
                     this.fb = fb;
@@ -58,7 +58,14 @@ System.register(["@angular/core", "@angular/router", "ng2-facebook-sdk", "../_se
                             var accessToken = res.authResponse.accessToken;
                             _this.fb.api('me?fields=id,name,email')
                                 .then(function (res) {
-                                return _this.temp(res);
+                                var pwd = _this.randomPas.generatePwd(8);
+                                var user = new adduser_1.AddUser();
+                                user.username = res.name;
+                                user.email = res.email;
+                                user.password = pwd;
+                                user.confirmPassword = pwd;
+                                console.log('User-temp: ', user);
+                                return user;
                             })
                                 .then(function (obj) {
                                 console.log('User1: ', obj);
@@ -81,38 +88,36 @@ System.register(["@angular/core", "@angular/router", "ng2-facebook-sdk", "../_se
                         .catch(function (error) { console.log(error); });
                 };
                 FbGplusApiComponent.prototype.onGoogleSignInSuccess = function (event) {
+                    var _this = this;
                     var googleUser = event.googleUser;
                     var profile = googleUser.getBasicProfile();
-                    console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-                    console.log('Email: ' + profile.getEmail());
-                    console.log('Name: ' + profile.getName());
-                };
-                FbGplusApiComponent.prototype.temp = function (obj) {
                     var pwd = this.randomPas.generatePwd(8);
                     var user = new adduser_1.AddUser();
-                    user.username = obj.name;
-                    user.email = obj.email;
+                    user.username = profile.getName();
+                    user.email = profile.getEmail();
                     user.password = pwd;
                     user.confirmPassword = pwd;
-                    console.log('User-temp: ', user);
-                    return user;
+                    console.log("user_gp: ", user);
+                    this.httpReg.postData(user)
+                        .subscribe(function (data) {
+                        alert("Log in success! Welcome " + data.username + "!");
+                        _this.router.navigate(['/search']);
+                    }, function (error) {
+                        alert("Sign in is not success. Repeat please.");
+                    });
                 };
+                FbGplusApiComponent = __decorate([
+                    core_1.Component({
+                        selector: 'fb-gplus-api',
+                        template: "\n\t\t<div class=\"fb-gplus-api\">\n\t\t\t<button type=\"submit\" class=\"btn btn-fb\" (click)=\"loginFB()\">Log in with Facebook</button>\n\t\t\t<google-signin\n\t\t\t\tclientId=\"309462390088-gjbirnlkpg403h9oph93sngsir4jigna.apps.googleusercontent.com\"\n\t\t\t\twidth=\"300\"\n\t\t\t\ttheme=\"dark\"\n\t\t\t\tscope=\"email profile\"\n\t\t\t\tlongTitle=\"true\"\n\t\t\t\t(googleSignInSuccess)=\"onGoogleSignInSuccess($event)\">\n\t\t\t</google-signin>\n\t\t</div>\n\t",
+                        providers: [http_add_user_service_1.HttpAddUserService, generate_pwd_service_1.GeneratePwdService]
+                    }), 
+                    __metadata('design:paramtypes', [ng2_facebook_sdk_1.FacebookService, http_add_user_service_1.HttpAddUserService, generate_pwd_service_1.GeneratePwdService, router_1.Router])
+                ], FbGplusApiComponent);
                 return FbGplusApiComponent;
             }());
-            FbGplusApiComponent = __decorate([
-                core_1.Component({
-                    selector: 'fb-gplus-api',
-                    template: "\n\t\t<div class=\"fb-gplus-api\">\n\t\t\t<button type=\"submit\" class=\"btn btn-fb\" (click)=\"loginFB()\">Log in with Facebook</button>\n\t\t\t<button type=\"submit\" class=\"btn btn-gplus\">Sign in with Google +</button>\n\t\t\t<google-signin\n\t\t\t\tclientId=\"309462390088-gjbirnlkpg403h9oph93sngsir4jigna.apps.googleusercontent.com\"\n\t\t\t\twidth=\"300\"\n\t\t\t\ttheme=\"dark\"\n\t\t\t\tscope=\"email profile\"\n\t\t\t\tlongTitle=\"true\"\n\t\t\t\t(googleSignInSuccess)=\"onGoogleSignInSuccess($event)\">\n\t\t\t</google-signin>\n\t\t</div>\n\t",
-                    styles: ["\n\t\t.fb-gplus-api google-signin #google-signin2 .abcRioButton { width: 100%; }\n\t"],
-                    providers: [http_add_user_service_1.HttpAddUserService, generate_pwd_service_1.GeneratePwdService]
-                }),
-                __metadata("design:paramtypes", [ng2_facebook_sdk_1.FacebookService,
-                    http_add_user_service_1.HttpAddUserService,
-                    generate_pwd_service_1.GeneratePwdService,
-                    router_1.Router])
-            ], FbGplusApiComponent);
             exports_1("FbGplusApiComponent", FbGplusApiComponent);
         }
-    };
+    }
 });
 //# sourceMappingURL=fb-gplus-api.component.js.map
