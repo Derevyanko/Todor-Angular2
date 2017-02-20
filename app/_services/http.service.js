@@ -32,16 +32,16 @@ System.register(['@angular/core', '@angular/http', 'rxjs/add/operator/map', 'rxj
                     var _this = this;
                     var body = JSON.stringify(obj);
                     var headers = new http_1.Headers({ 'Content-Type': 'application/json;charset=utf-8' });
-                    var promise = new Promise(function (resolve) {
+                    var promise = new Promise(function (resolve, reject) {
                         _this.http.post('http://104.196.125.63:9000/api/signin', body, { headers: headers })
                             .subscribe(function (resp) {
                             var token = resp.json() && resp.json().token;
                             if (token) {
                                 _this.token = token;
-                                localStorage.setItem('currentUser', JSON.stringify({ username: obj.name, token: token }));
+                                localStorage.setItem('currentUser', JSON.stringify({ uid: obj.uid, token: token }));
                                 resolve(true);
                             }
-                        }, function (err) { return alert("Error"); });
+                        }, function (err) { return reject(alert("Error")); });
                     });
                     return promise
                         .then(function (response) {
@@ -50,16 +50,15 @@ System.register(['@angular/core', '@angular/http', 'rxjs/add/operator/map', 'rxj
                             var headers_1 = new http_1.Headers({ 'Content-Type': 'application/json;charset=utf-8' });
                             _this.http.post('http://104.196.125.63:9000/api/sendtoken', currentUser, { headers: headers_1 })
                                 .subscribe(function (data) {
-                                if (data.success) {
-                                    _this.isLoggedIn = true;
-                                    return _this.isLoggedIn;
+                                if (data.status === 200) {
+                                    console.log("Status OK");
                                 }
-                            });
+                            }, function (err) { return alert("Error"); });
                         }
-                    });
+                    })
+                        .catch(function (error) { return alert('Error'); });
                 };
                 HttpService.prototype.logout = function () {
-                    this.isLoggedIn = false;
                     this.token = null;
                     localStorage.removeItem('currentUser');
                 };
@@ -73,7 +72,4 @@ System.register(['@angular/core', '@angular/http', 'rxjs/add/operator/map', 'rxj
         }
     }
 });
-/**
- * Created by D on 20.01.2017.
- */
 //# sourceMappingURL=http.service.js.map

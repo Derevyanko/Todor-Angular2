@@ -8,7 +8,6 @@ import 'rxjs/add/observable/throw';
 
 @Injectable()
 export class HttpService{
-    isLoggedIn: boolean;
     token: string;
 
     constructor(private http: Http) {}
@@ -17,18 +16,18 @@ export class HttpService{
         const body = JSON.stringify(obj);
         let headers = new Headers({ 'Content-Type': 'application/json;charset=utf-8' });
 
-        let promise = new Promise(resolve => {
+        let promise = new Promise((resolve, reject) => {
             this.http.post('http://104.196.125.63:9000/api/signin', body, { headers: headers })
                 .subscribe(
                     resp => {
                         let token = resp.json() && resp.json().token;
                         if (token) {
                             this.token = token;
-                            localStorage.setItem('currentUser', JSON.stringify({username: obj.name, token: token}));
+                            localStorage.setItem('currentUser', JSON.stringify({uid: obj.uid, token: token}));
                             resolve(true);
                         }
                     },
-                    err => alert("Error")
+                    err => reject(alert("Error"))
                 );
         });
 
@@ -38,24 +37,21 @@ export class HttpService{
                         let currentUser = JSON.parse(localStorage.getItem('currentUser'));
                         let headers = new Headers({ 'Content-Type': 'application/json;charset=utf-8' });
                         this.http.post('http://104.196.125.63:9000/api/sendtoken', currentUser, { headers: headers })
-                            .subscribe(data => {
-                                if (data.success) {
-                                    this.isLoggedIn = true;
-                                    return this.isLoggedIn;
-                                }
-                            });
+                            .subscribe(
+                                data => {
+                                    if (data.status === 200) {
+                                        console.log("Status OK");
+                                    }
+                                },
+                                err => alert("Error")
+                            );
                     }
                 })
+                .catch(error => alert('Error'));
     }
 
     logout() {
-        this.isLoggedIn = false;
         this.token = null;
         localStorage.removeItem('currentUser');
     }
 }
-
-
-/**
- * Created by D on 20.01.2017.
- */

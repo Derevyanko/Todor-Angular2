@@ -12,7 +12,7 @@ import { AddUser } from '../_models/adduser';
 		<div class="fb-gplus-api">
 			<button type="submit" class="btn btn-fb" (click)="loginFB()">Log in with Facebook</button>
 			<google-signin
-				clientId="309462390088-gjbirnlkpg403h9oph93sngsir4jigna.apps.googleusercontent.com"
+				clientId="locify-test-c9420"
 				width="300"
 				theme="dark"
 				scope="email profile"
@@ -30,7 +30,7 @@ export class FbGplusApiComponent {
 				private randomPas: GeneratePwdService,
 				private router: Router) {
 		let fbParams: FacebookInitParams = {
-			appId: '219595158509433', // your-app-id
+			appId: '221102408303069', // your-app-id
 			xfbml: true,
 			version: 'v2.6'
 		};
@@ -47,21 +47,21 @@ export class FbGplusApiComponent {
 					this.fb.api('me?fields=id,name,email')
 						.then(res => {
 							let pwd = this.randomPas.generatePwd(8);
+							let dog = res.email.indexOf('@');
 							let user: AddUser = new AddUser();
-							user.username = res.name;
-							user.email = res.email;
-							user.password = pwd;
-							user.confirmPassword = pwd;
-							console.log('User-temp: ', user);
+							user.uid = res.email.slice(0, dog);
+							user.emailid = res.email;
+							user.name = res.name;
+							user.pwd = pwd;
+							console.log('User: ', user);
 							return user;
 						})
 						.then(obj => {
-							console.log('User1: ', obj);
 							this.httpReg.postData(obj)
 								.subscribe(
 									data => {
-										alert("Log in success! Welcome " + data.username + "!");
-										this.router.navigate(['/search']);
+										alert("Sign up success! Login: " +obj.uid+ " Password: " +obj.pwd+ " Welcome, my friend!");
+										this.router.navigate(['/login']);
 									},
 									error => {
 									  alert("Log in is not success. Repeat please.");
@@ -77,17 +77,16 @@ export class FbGplusApiComponent {
 	}
 
 	/* Log in Google+ */
-	private myClientId: string = '309462390088-gjbirnlkpg403h9oph93sngsir4jigna.apps.googleusercontent.com';
-
 	onGoogleSignInSuccess(event: GoogleSignInSuccess) {
 	    let googleUser: gapi.auth2.GoogleUser = event.googleUser;
 	    let profile: gapi.auth2.BasicProfile = googleUser.getBasicProfile();
 	    let pwd = this.randomPas.generatePwd(8);
+	    let dog = profile.getEmail().indexOf('@');
 	    let user: AddUser = new AddUser();
-	    user.username = profile.getName();
-	    user.email = profile.getEmail();
-	    user.password = pwd;
-	    user.confirmPassword = pwd;
+	    user.uid = profile.getEmail().slice(0, dog);
+	    user.emailid = profile.getEmail();
+	    user.name = profile.getName();
+	    user.pwd = pwd;
 	    console.log("user_gp: ", user);
 	    
 	    /*this.httpReg.postData(user)

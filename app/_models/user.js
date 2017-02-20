@@ -14,7 +14,4 @@ System.register([], function(exports_1, context_1) {
         }
     }
 });
-/**
- * Created by D on 20.01.2017.
- */
 //# sourceMappingURL=user.js.map

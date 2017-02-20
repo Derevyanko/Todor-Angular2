@@ -40,15 +40,11 @@ System.register(['@angular/core', '@angular/router', '../_services/http.service'
                     var _this = this;
                     this.httpService.login(user)
                         .then(function (data) {
-                        if (data) {
-                            alert("Login success! Have a nice day!");
-                            _this.router.navigate(['/search']);
-                        }
-                        else {
-                            alert("Login unsuccessful!");
-                            console.log(data);
-                        }
-                    });
+                        console.log(data);
+                        alert("Login success! Have a nice day!");
+                        _this.router.navigate(['/search']);
+                    }, function (error) { return alert('Login is not success. Repeat please.'); })
+                        .catch(function (error) { return alert(error); });
                 };
                 LoginFormComponent = __decorate([
                     core_1.Component({
@@ -65,7 +61,4 @@ System.register(['@angular/core', '@angular/router', '../_services/http.service'
         }
     }
 });
-/**
- * Created by D on 18.01.2017.
- */ 
 //# sourceMappingURL=login-form.component.js.map

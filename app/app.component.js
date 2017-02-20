@@ -1,4 +1,4 @@
-System.register(['@angular/core', './_services/http.service', '@angular/common'], function(exports_1, context_1) {
+System.register(['@angular/core'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,36 +10,26 @@ System.register(['@angular/core', './_services/http.service', '@angular/common']
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, http_service_1, common_1;
+    var core_1;
     var AppComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
-            },
-            function (http_service_1_1) {
-                http_service_1 = http_service_1_1;
-            },
-            function (common_1_1) {
-                common_1 = common_1_1;
             }],
         execute: function() {
             AppComponent = (function () {
-                function AppComponent(location) {
-                    this.location = location;
-                    var logged;
-                    var path = location.path();
-                    console.log(path);
-                    if (path === "/uprofile") {
-                        this.logged = true;
-                    }
-                    else if (path === "/bprofile") {
-                        this.logged = true;
-                    }
-                    else {
+                function AppComponent() {
+                    this.logged = true;
+                }
+                AppComponent.prototype.changeMenuLink = function () {
+                    if (localStorage.getItem("currentUser")) {
                         this.logged = false;
                     }
-                }
+                };
+                AppComponent.prototype.ngDoCheck = function () {
+                    this.changeMenuLink();
+                };
                 AppComponent.prototype.closeMenu = function () {
                     var clientHeight = document.documentElement.clientHeight;
                     var navMenu = $('#navigation-menu');
@@ -89,10 +79,9 @@ System.register(['@angular/core', './_services/http.service', '@angular/common']
                         moduleId: module.id,
                         selector: 'my-app',
                         styles: [" \n        .active a {\n        color:#fff;\n        }\n    "],
-                        templateUrl: './app.component.html',
-                        providers: [http_service_1.HttpService, http_service_1.HttpService]
+                        templateUrl: './app.component.html'
                     }), 
-                    __metadata('design:paramtypes', [common_1.Location])
+                    __metadata('design:paramtypes', [])
                 ], AppComponent);
                 return AppComponent;
             }());

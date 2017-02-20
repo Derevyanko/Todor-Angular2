@@ -78,7 +78,7 @@ System.register(['@angular/core', '@angular/platform-browser', '@angular/forms',
                             platform_browser_1.BrowserModule,
                             forms_1.FormsModule,
                             http_1.HttpModule,
-                            app_routing_1.routing
+                            app_routing_1.ROUTING
                         ],
                         declarations: [
                             equal_validator_directive_1.EqualValidator,

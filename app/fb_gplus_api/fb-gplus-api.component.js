@@ -60,10 +60,10 @@ System.register(['@angular/core', '@angular/router', 'ng2-facebook-sdk', '../_se
                                 .then(function (res) {
                                 var pwd = _this.randomPas.generatePwd(8);
                                 var user = new adduser_1.AddUser();
-                                user.username = res.name;
-                                user.email = res.email;
-                                user.password = pwd;
-                                user.confirmPassword = pwd;
+                                user.uid = res.name;
+                                user.emailid = res.email;
+                                user.name = res.name;
+                                user.pwd = pwd;
                                 console.log('User-temp: ', user);
                                 return user;
                             })
@@ -71,7 +71,7 @@ System.register(['@angular/core', '@angular/router', 'ng2-facebook-sdk', '../_se
                                 console.log('User1: ', obj);
                                 _this.httpReg.postData(obj)
                                     .subscribe(function (data) {
-                                    alert("Log in success! Welcome " + data.username + "!");
+                                    alert("Log in success! Welcome " + data.name + "!");
                                     _this.router.navigate(['/search']);
                                 }, function (error) {
                                     alert("Log in is not success. Repeat please.");
@@ -88,23 +88,24 @@ System.register(['@angular/core', '@angular/router', 'ng2-facebook-sdk', '../_se
                         .catch(function (error) { console.log(error); });
                 };
                 FbGplusApiComponent.prototype.onGoogleSignInSuccess = function (event) {
-                    var _this = this;
                     var googleUser = event.googleUser;
                     var profile = googleUser.getBasicProfile();
                     var pwd = this.randomPas.generatePwd(8);
                     var user = new adduser_1.AddUser();
-                    user.username = profile.getName();
-                    user.email = profile.getEmail();
-                    user.password = pwd;
-                    user.confirmPassword = pwd;
+                    user.uid = profile.getName();
+                    user.emailid = profile.getEmail();
+                    user.name = profile.getGivenName();
+                    user.pwd = pwd;
                     console.log("user_gp: ", user);
-                    this.httpReg.postData(user)
-                        .subscribe(function (data) {
-                        alert("Log in success! Welcome " + data.username + "!");
-                        _this.router.navigate(['/search']);
-                    }, function (error) {
-                        alert("Sign in is not success. Repeat please.");
-                    });
+                    /*this.httpReg.postData(user)
+                        .subscribe(
+                            data => {
+                                alert("Log in success! Welcome " + data.username + "!");
+                                this.router.navigate(['/search']);
+                            },
+                            error => {
+                                alert("Sign in is not success. Repeat please.");
+                        });*/
                 };
                 FbGplusApiComponent = __decorate([
                     core_1.Component({

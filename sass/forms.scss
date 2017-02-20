@@ -108,7 +108,8 @@ form {
     cursor: pointer;
   }
 
-  input[name="username"] {
+  input[name="username"],
+  input[name="uid"] {
     outline: none;
     background: url("../img/user.png") no-repeat;
     background-color: #fff;

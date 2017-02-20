@@ -32,20 +32,14 @@ export class LoginFormComponent implements OnInit {
     
     login(user){
         this.httpService.login(user)
-            .then(data => {
-                if (data) {
+            .then(
+                data => {
+                    console.log(data);
                     alert("Login success! Have a nice day!");
                     this.router.navigate(['/search']);
-                } else {
-                    alert("Login unsuccessful!");
-                    console.log(data);
-                }
-            });
+                },
+                error => alert('Login is not success. Repeat please.')
+            )
+            .catch(error => alert(error));
     }
 }
-
-
-
-/**
- * Created by D on 18.01.2017.
- */

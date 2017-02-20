@@ -28,8 +28,8 @@ export class  AuthorizationFormComponent {
     this.httpAddUserService.postData(user)
         .subscribe(
           data => {
-            alert("Signin success! Welcome " + user.username + "!");
-            this.router.navigate(['/login']);
+            alert("Sign up success! Welcome " + user.name + "!");
+            this.router.navigate(['/search']);
           },
           error => {
             alert("Registration is not success. Repeat please.");

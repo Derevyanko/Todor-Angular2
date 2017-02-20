@@ -44,7 +44,4 @@ System.register(['@angular/core', '@angular/router'], function(exports_1, contex
         }
     }
 });
-/**
- * Created by Nadine on 27.01.2017.
- */
 //# sourceMappingURL=guards.js.map

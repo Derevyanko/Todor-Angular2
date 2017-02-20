@@ -10,18 +10,12 @@ import { BusinessProfileComponent } from './business_profile/business-profile.co
 
 const appRoutes: Routes =[
     { path: '', redirectTo: '/search', pathMatch:'full'},
-    { path: 'search', component: SearchPageComponent},
-    //canActivate: [AuthGuard] },
+    { path: 'search', component: SearchPageComponent },
     { path: 'uprofile', component:  UserProfileComponent, canActivate: [AuthGuard] },
     { path: 'bprofile', component: BusinessProfileComponent, canActivate: [AuthGuard]},
     { path: 'signin', component: AuthorizationFormComponent},
     { path: 'login', component: LoginFormComponent},
     { path: '**', component: NotFoundComponent }
-
 ];
 
 export const ROUTING = RouterModule.forRoot(appRoutes);
-
-/**
- * Created by D on 26.01.2017.
- */

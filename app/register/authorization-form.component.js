@@ -37,8 +37,8 @@ System.register(['@angular/core', '../_models/adduser', '../_services/http-add-u
                     var _this = this;
                     this.httpAddUserService.postData(user)
                         .subscribe(function (data) {
-                        alert("Signin success! Welcome " + user.username + "!");
-                        _this.router.navigate(['/login']);
+                        alert("Sign up success! Welcome " + user.name + "!");
+                        _this.router.navigate(['/search']);
                     }, function (error) {
                         alert("Registration is not success. Repeat please.");
                     });

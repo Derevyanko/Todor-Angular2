@@ -2,7 +2,7 @@ System.register(['@angular/router', './_guards/guards', './register/authorizatio
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var router_1, guards_1, authorization_form_component_1, login_form_component_1, search_page_component_1, not_found_component_1, user_profile_component_1, business_profile_component_1;
-    var appRoutes, routing;
+    var appRoutes, ROUTING;
     return {
         setters:[
             function (router_1_1) {
@@ -33,18 +33,14 @@ System.register(['@angular/router', './_guards/guards', './register/authorizatio
             appRoutes = [
                 { path: '', redirectTo: '/search', pathMatch: 'full' },
                 { path: 'search', component: search_page_component_1.SearchPageComponent },
-                //canActivate: [AuthGuard] },
                 { path: 'uprofile', component: user_profile_component_1.UserProfileComponent, canActivate: [guards_1.AuthGuard] },
                 { path: 'bprofile', component: business_profile_component_1.BusinessProfileComponent, canActivate: [guards_1.AuthGuard] },
                 { path: 'signin', component: authorization_form_component_1.AuthorizationFormComponent },
                 { path: 'login', component: login_form_component_1.LoginFormComponent },
                 { path: '**', component: not_found_component_1.NotFoundComponent }
             ];
-            exports_1("routing", routing = router_1.RouterModule.forRoot(appRoutes));
+            exports_1("ROUTING", ROUTING = router_1.RouterModule.forRoot(appRoutes));
         }
     }
 });
-/**
- * Created by D on 26.01.2017.
- */
 //# sourceMappingURL=app.routing.js.map

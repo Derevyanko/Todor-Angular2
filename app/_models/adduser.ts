@@ -1,6 +1,6 @@
 export class AddUser {
-    username: string;
-    email: string;
-    password: string;
-    confirmPassword: string;
+    name: string;
+    uid: any;
+    emailid: any;
+    pwd: any;
 }
