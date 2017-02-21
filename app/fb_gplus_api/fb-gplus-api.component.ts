@@ -12,7 +12,7 @@ import { AddUser } from '../_models/adduser';
 		<div class="fb-gplus-api">
 			<button type="submit" class="btn btn-fb" (click)="loginFB()">Log in with Facebook</button>
 			<google-signin
-				clientId="locify-test-c9420"
+				clientId="locify-test-c9420.apps.googleusercontent.com"
 				width="300"
 				theme="dark"
 				scope="email profile"

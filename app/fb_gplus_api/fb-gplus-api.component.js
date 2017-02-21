@@ -39,10 +39,8 @@ System.register(['@angular/core', '@angular/router', 'ng2-facebook-sdk', '../_se
                     this.httpReg = httpReg;
                     this.randomPas = randomPas;
                     this.router = router;
-                    /* Log in Google+ */
-                    this.myClientId = '309462390088-gjbirnlkpg403h9oph93sngsir4jigna.apps.googleusercontent.com';
                     var fbParams = {
-                        appId: '219595158509433',
+                        appId: '221102408303069',
                         xfbml: true,
                         version: 'v2.6'
                     };
@@ -59,20 +57,20 @@ System.register(['@angular/core', '@angular/router', 'ng2-facebook-sdk', '../_se
                             _this.fb.api('me?fields=id,name,email')
                                 .then(function (res) {
                                 var pwd = _this.randomPas.generatePwd(8);
+                                var dog = res.email.indexOf('@');
                                 var user = new adduser_1.AddUser();
-                                user.uid = res.name;
+                                user.uid = res.email.slice(0, dog);
                                 user.emailid = res.email;
                                 user.name = res.name;
                                 user.pwd = pwd;
-                                console.log('User-temp: ', user);
+                                console.log('User: ', user);
                                 return user;
                             })
                                 .then(function (obj) {
-                                console.log('User1: ', obj);
                                 _this.httpReg.postData(obj)
                                     .subscribe(function (data) {
-                                    alert("Log in success! Welcome " + data.name + "!");
-                                    _this.router.navigate(['/search']);
+                                    alert("Sign up success! Login: " + obj.uid + " Password: " + obj.pwd + " Welcome, my friend!");
+                                    _this.router.navigate(['/login']);
                                 }, function (error) {
                                     alert("Log in is not success. Repeat please.");
                                 });
@@ -87,14 +85,16 @@ System.register(['@angular/core', '@angular/router', 'ng2-facebook-sdk', '../_se
                     })
                         .catch(function (error) { console.log(error); });
                 };
+                /* Log in Google+ */
                 FbGplusApiComponent.prototype.onGoogleSignInSuccess = function (event) {
                     var googleUser = event.googleUser;
                     var profile = googleUser.getBasicProfile();
                     var pwd = this.randomPas.generatePwd(8);
+                    var dog = profile.getEmail().indexOf('@');
                     var user = new adduser_1.AddUser();
-                    user.uid = profile.getName();
+                    user.uid = profile.getEmail().slice(0, dog);
                     user.emailid = profile.getEmail();
-                    user.name = profile.getGivenName();
+                    user.name = profile.getName();
                     user.pwd = pwd;
                     console.log("user_gp: ", user);
                     /*this.httpReg.postData(user)
@@ -110,7 +110,7 @@ System.register(['@angular/core', '@angular/router', 'ng2-facebook-sdk', '../_se
                 FbGplusApiComponent = __decorate([
                     core_1.Component({
                         selector: 'fb-gplus-api',
-                        template: "\n\t\t<div class=\"fb-gplus-api\">\n\t\t\t<button type=\"submit\" class=\"btn btn-fb\" (click)=\"loginFB()\">Log in with Facebook</button>\n\t\t\t<google-signin\n\t\t\t\tclientId=\"309462390088-gjbirnlkpg403h9oph93sngsir4jigna.apps.googleusercontent.com\"\n\t\t\t\twidth=\"300\"\n\t\t\t\ttheme=\"dark\"\n\t\t\t\tscope=\"email profile\"\n\t\t\t\tlongTitle=\"true\"\n\t\t\t\t(googleSignInSuccess)=\"onGoogleSignInSuccess($event)\">\n\t\t\t</google-signin>\n\t\t</div>\n\t",
+                        template: "\n\t\t<div class=\"fb-gplus-api\">\n\t\t\t<button type=\"submit\" class=\"btn btn-fb\" (click)=\"loginFB()\">Log in with Facebook</button>\n\t\t\t<google-signin\n\t\t\t\tclientId=\"locify-test-c9420.apps.googleusercontent.com\"\n\t\t\t\twidth=\"300\"\n\t\t\t\ttheme=\"dark\"\n\t\t\t\tscope=\"email profile\"\n\t\t\t\tlongTitle=\"true\"\n\t\t\t\t(googleSignInSuccess)=\"onGoogleSignInSuccess($event)\">\n\t\t\t</google-signin>\n\t\t</div>\n\t",
                         providers: [http_add_user_service_1.HttpAddUserService, generate_pwd_service_1.GeneratePwdService]
                     }), 
                     __metadata('design:paramtypes', [ng2_facebook_sdk_1.FacebookService, http_add_user_service_1.HttpAddUserService, generate_pwd_service_1.GeneratePwdService, router_1.Router])

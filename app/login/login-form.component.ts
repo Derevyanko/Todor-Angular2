@@ -35,11 +35,12 @@ export class LoginFormComponent implements OnInit {
             .then(
                 data => {
                     console.log(data);
-                    alert("Login success! Have a nice day!");
-                    this.router.navigate(['/search']);
-                },
-                error => alert('Login is not success. Repeat please.')
+                    if (data) {
+                        alert("Login success! Have a nice day!");
+                        this.router.navigate(['/search']);
+                    }
+                }
             )
-            .catch(error => alert(error));
+            .catch(error => alert("User is not registered!"));
     }
 }

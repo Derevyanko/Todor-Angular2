@@ -44,16 +44,19 @@ System.register(['@angular/core'], function(exports_1, context_1) {
                             navMenu.css('display', 'none');
                             $('.label-toggle').removeClass('label-toggle-click');
                             $('.wrapper').height('auto');
+                            $('body').css('overflow', 'visible');
                         });
                         if (menuClose == 'block') {
-                            $('.wrapper').height(menuHeight + headerHeight);
-                            $('.wrapper').css('overflow', 'hidden');
+                            $('body').css('overflow', 'hidden');
+                            $('nav ul').css('height', '100%');
+                            $('nav ul').css('position', 'fixed');
                             console.log('test display block');
                         }
                         else if (menuClose == 'none') {
                             $('.label-toggle').removeClass('label-toggle-click');
-                            $('.wrapper').height('auto');
-                            $('.wrapper').css('overflow', 'auto');
+                            $('body').css('overflow', 'visible');
+                            $('nav ul').css('height', 'auto');
+                            $('nav ul').css('position', 'relative');
                             console.log('test display none');
                         }
                     });
@@ -63,11 +66,19 @@ System.register(['@angular/core'], function(exports_1, context_1) {
                         console.log(width);
                         if (width > 768) {
                             $('#navigation-menu').css('display', 'flex');
+                            $('body').css('overflow', 'visible');
+                            $('nav ul').css('height', 'auto');
+                            $('nav ul').css('position', 'relative');
                             console.log(width + 'if');
                         }
                         else if (width < 768 && menuC == 'block') {
-                            $('.label-toggle').removeClass('label-toggle-click');
+                            $('nav ul').css('height', '100%');
+                            $('nav ul').css('position', 'fixed');
                             console.log('width < 768 && menuC == block');
+                        }
+                        else if (width < 768) {
+                            $('.label-toggle').removeClass('label-toggle-click');
+                            $('#navigation-menu').css('display', 'none');
                         }
                         else {
                             $('#navigation-menu').css('display', 'none');

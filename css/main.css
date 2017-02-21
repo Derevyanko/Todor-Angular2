@@ -517,7 +517,6 @@ h1 {
     position: relative;
     background: #80888b none repeat scroll 0 0;
     z-index: 10;
-    transition: all 1s ease-in;
   }
   /* line 86, ../sass/modules/_media.scss */
   nav ul li {
