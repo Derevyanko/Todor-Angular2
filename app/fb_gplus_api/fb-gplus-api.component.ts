@@ -1,10 +1,14 @@
 import { Component } from '@angular/core';
-import { GoogleSignInSuccess } from 'angular-google-signin';
 import { Router } from '@angular/router';
+
 import { FacebookService, FacebookInitParams, FacebookLoginResponse } from 'ng2-facebook-sdk';
+import { GoogleSignInSuccess } from 'angular-google-signin';
+
+import { HttpService } from '../_services/http.service';
 import { HttpAddUserService } from '../_services/http-add-user.service';
 import { GeneratePwdService } from '../_services/generate-pwd.service';
 import { AddUser } from '../_models/adduser';
+import 'rxjs/add/operator/toPromise';
 
 @Component({
 	selector: 'fb-gplus-api',
@@ -12,7 +16,7 @@ import { AddUser } from '../_models/adduser';
 		<div class="fb-gplus-api">
 			<button type="submit" class="btn btn-fb" (click)="loginFB()">Log in with Facebook</button>
 			<google-signin
-				clientId="locify-test-c9420.apps.googleusercontent.com"
+				clientId="349221323855-92j9r4muhqh4ncos5qdp6dpmml6kqp3n.apps.googleusercontent.com"
 				width="300"
 				theme="dark"
 				scope="email profile"
@@ -21,14 +25,15 @@ import { AddUser } from '../_models/adduser';
 			</google-signin>
 		</div>
 	`,
-	providers: [HttpAddUserService, GeneratePwdService]
+	providers: [HttpAddUserService, GeneratePwdService, HttpService]
 })
 export class FbGplusApiComponent {
 
 	constructor(private fb: FacebookService,
 				private httpReg: HttpAddUserService,
 				private randomPas: GeneratePwdService,
-				private router: Router) {
+				private router: Router,
+				private httpLogin: HttpService) {
 		let fbParams: FacebookInitParams = {
 			appId: '221102408303069', // your-app-id
 			xfbml: true,
@@ -39,11 +44,9 @@ export class FbGplusApiComponent {
 
 	/* Log in Facebook */
 	loginFB() {
-		this.fb.login()
+		this.fb.login({enable_profile_selector: true, return_scopes: true, scope: 'email'})
 			.then((res: FacebookLoginResponse) => {
 				if (res.status === 'connected') {
-					console.log('We are connected.');
-					let accessToken = res.authResponse.accessToken;
 					this.fb.api('me?fields=id,name,email')
 						.then(res => {
 							let pwd = this.randomPas.generatePwd(8);
@@ -53,19 +56,26 @@ export class FbGplusApiComponent {
 							user.emailid = res.email;
 							user.name = res.name;
 							user.pwd = pwd;
-							console.log('User: ', user);
 							return user;
 						})
 						.then(obj => {
 							this.httpReg.postData(obj)
-								.subscribe(
-									data => {
-										alert("Sign up success! Login: " +obj.uid+ " Password: " +obj.pwd+ " Welcome, my friend!");
-										this.router.navigate(['/login']);
-									},
-									error => {
-									  alert("Log in is not success. Repeat please.");
-								});
+								.toPromise()
+								.then(resp => {
+									if (resp) {
+										this.httpLogin.login({"uid": obj.uid,"pwd": obj.pwd})
+											.then(data => {
+												if (data) {
+												    alert("Login success! Have a nice day!");
+												    this.router.navigate(['/search']);
+												} else {
+												    alert("User is not registered!");
+												    this.router.navigate(['/signin']);
+												}
+											});
+									}
+								})
+								.catch(error => console.log("ERROR: ", error));
 						})
 				} else if (res.status === 'not_authorized') {
 					console.log('We are not logged in.');

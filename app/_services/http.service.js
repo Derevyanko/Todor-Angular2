@@ -1,4 +1,4 @@
-System.register(['@angular/core', '@angular/http', 'rxjs/add/operator/map', 'rxjs/add/operator/catch', 'rxjs/add/observable/throw'], function(exports_1, context_1) {
+System.register(['@angular/core', '@angular/http', 'rxjs/add/operator/toPromise', 'rxjs/add/operator/map', 'rxjs/add/operator/catch', 'rxjs/add/observable/throw'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -22,41 +22,76 @@ System.register(['@angular/core', '@angular/http', 'rxjs/add/operator/map', 'rxj
             },
             function (_1) {},
             function (_2) {},
-            function (_3) {}],
+            function (_3) {},
+            function (_4) {}],
         execute: function() {
             HttpService = (function () {
                 function HttpService(http) {
                     this.http = http;
                 }
+                /*login(obj: User) {
+                    const body = JSON.stringify(obj);
+                    let headers = new Headers({ 'Content-Type': 'application/json;charset=utf-8' });
+            
+                    let promise = new Promise((resolve, reject) => {
+                        this.http.post('http://104.196.125.63:9000/api/signin', body, { headers: headers })
+                            .subscribe(
+                                resp => {
+                                    let token = resp.json() && resp.json().token;
+                                    if (token) {
+                                        this.token = token;
+                                        localStorage.setItem('currentUser', JSON.stringify({uid: obj.uid, token: token}));
+                                        resolve(true);
+                                    } else {
+                                        reject(new Error('Login or Password is not correct!'));
+                                    }
+                                });
+                    });
+            
+                    return promise
+                            .then(response => {
+                                if (response) {
+                                    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                                    let headers = new Headers({ 'Content-Type': 'application/json;charset=utf-8' });
+                                    this.http.post('http://104.196.125.63:9000/api/sendtoken', currentUser, { headers: headers })
+                                        .subscribe(
+                                            data => {
+                                                if (data.status === 200) {
+                                                    console.log("Status OK");
+                                                }
+                                            },
+                                            err => alert("Error")
+                                        );
+                                }
+                            })
+                            .catch(error => alert('Error: ' + error.message));
+                }*/
                 HttpService.prototype.login = function (obj) {
                     var _this = this;
                     var body = JSON.stringify(obj);
                     var headers = new http_1.Headers({ 'Content-Type': 'application/json;charset=utf-8' });
-                    var promise = new Promise(function (resolve, reject) {
-                        _this.http.post('http://104.196.125.63:9000/api/signin', body, { headers: headers })
-                            .subscribe(function (resp) {
-                            var token = resp.json() && resp.json().token;
-                            if (token) {
-                                _this.token = token;
-                                localStorage.setItem('currentUser', JSON.stringify({ uid: obj.uid, token: token }));
-                                resolve(true);
-                            }
-                        }, function (err) { return reject(alert("Error")); });
-                    });
-                    return promise
+                    return this.http.post('http://104.196.125.63:9000/api/signin', body, { headers: headers })
+                        .toPromise()
                         .then(function (response) {
-                        if (response) {
-                            var currentUser = JSON.parse(localStorage.getItem('currentUser'));
-                            var headers_1 = new http_1.Headers({ 'Content-Type': 'application/json;charset=utf-8' });
-                            _this.http.post('http://104.196.125.63:9000/api/sendtoken', currentUser, { headers: headers_1 })
-                                .subscribe(function (data) {
-                                if (data.status === 200) {
-                                    console.log("Status OK");
-                                }
-                            }, function (err) { return alert("Error"); });
+                        var token = response.json() && response.json().token;
+                        if (token) {
+                            _this.token = token;
+                            localStorage.setItem('currentUser', JSON.stringify({ uid: obj.uid, token: token }));
+                            return true;
                         }
                     })
-                        .catch(function (error) { return alert('Error'); });
+                        .then(function (bool) {
+                        if (bool) {
+                            var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                            return _this.http.post('http://104.196.125.63:9000/api/sendtoken', currentUser, { headers: headers });
+                        }
+                    });
+                    /*.then(data => {
+                        if (data.status === 200) {
+                            console.log("Status OK");
+                        }
+                    })
+                    .catch(error => alert("Error: " + error));*/
                 };
                 HttpService.prototype.logout = function () {
                     this.token = null;

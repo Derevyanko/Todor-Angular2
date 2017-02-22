@@ -34,13 +34,14 @@ export class LoginFormComponent implements OnInit {
         this.httpService.login(user)
             .then(
                 data => {
-                    console.log(data);
                     if (data) {
                         alert("Login success! Have a nice day!");
                         this.router.navigate(['/search']);
+                    } else {
+                        alert("User is not registered!");
+                        this.router.navigate(['/signin']);
                     }
                 }
-            )
-            .catch(error => alert("User is not registered!"));
+            );
     }
 }

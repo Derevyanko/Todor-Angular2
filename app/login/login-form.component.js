@@ -41,10 +41,12 @@ System.register(['@angular/core', '@angular/router', '../_services/http.service'
                     this.httpService.login(user)
                         .then(function (data) {
                         console.log(data);
-                        alert("Login success! Have a nice day!");
-                        _this.router.navigate(['/search']);
-                    }, function (error) { return alert('Login is not success. Repeat please.'); })
-                        .catch(function (error) { return alert(error); });
+                        if (data) {
+                            alert("Login success! Have a nice day!");
+                            _this.router.navigate(['/search']);
+                        }
+                    })
+                        .catch(function (error) { return alert("User is not registered!"); });
                 };
                 LoginFormComponent = __decorate([
                     core_1.Component({
