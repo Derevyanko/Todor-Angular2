@@ -1,8 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { FacebookService, FacebookInitParams, FacebookLoginResponse } from 'ng2-facebook-sdk';
-import { GoogleSignInSuccess } from 'angular-google-signin';
 
 import { HttpService } from '../_services/http.service';
 import { HttpAddUserService } from '../_services/http-add-user.service';
@@ -10,24 +9,19 @@ import { GeneratePwdService } from '../_services/generate-pwd.service';
 import { AddUser } from '../_models/adduser';
 import 'rxjs/add/operator/toPromise';
 
+declare const gapi: any;
+
 @Component({
 	selector: 'fb-gplus-api',
 	template: `
 		<div class="fb-gplus-api">
 			<button type="submit" class="btn btn-fb" (click)="loginFB()">Log in with Facebook</button>
-			<google-signin
-				clientId="349221323855-92j9r4muhqh4ncos5qdp6dpmml6kqp3n.apps.googleusercontent.com"
-				width="300"
-				theme="dark"
-				scope="email profile"
-				longTitle="true"
-				(googleSignInSuccess)="onGoogleSignInSuccess($event)">
-			</google-signin>
+			<button class="btn btn-gplus" id="googleBtn">Sign up with Google +</button>
 		</div>
 	`,
 	providers: [HttpAddUserService, GeneratePwdService, HttpService]
 })
-export class FbGplusApiComponent {
+export class FbGplusApiComponent implements AfterViewInit {
 
 	constructor(private fb: FacebookService,
 				private httpReg: HttpAddUserService,
@@ -56,6 +50,7 @@ export class FbGplusApiComponent {
 							user.emailid = res.email;
 							user.name = res.name;
 							user.pwd = pwd;
+							console.log(user);
 							return user;
 						})
 						.then(obj => {
@@ -66,11 +61,11 @@ export class FbGplusApiComponent {
 										this.httpLogin.login({"uid": obj.uid,"pwd": obj.pwd})
 											.then(data => {
 												if (data) {
-												    alert("Login success! Have a nice day!");
-												    this.router.navigate(['/search']);
+													alert("Login success! Have a nice day!");
+													this.router.navigate(['/search']);
 												} else {
-												    alert("User is not registered!");
-												    this.router.navigate(['/signin']);
+													alert("User is not registered!");
+													this.router.navigate(['/signin']);
 												}
 											});
 									}
@@ -87,26 +82,55 @@ export class FbGplusApiComponent {
 	}
 
 	/* Log in Google+ */
-	onGoogleSignInSuccess(event: GoogleSignInSuccess) {
-	    let googleUser: gapi.auth2.GoogleUser = event.googleUser;
-	    let profile: gapi.auth2.BasicProfile = googleUser.getBasicProfile();
-	    let pwd = this.randomPas.generatePwd(8);
-	    let dog = profile.getEmail().indexOf('@');
-	    let user: AddUser = new AddUser();
-	    user.uid = profile.getEmail().slice(0, dog);
-	    user.emailid = profile.getEmail();
-	    user.name = profile.getName();
-	    user.pwd = pwd;
-	    console.log("user_gp: ", user);
-	    
-	    /*this.httpReg.postData(user)
-	    	.subscribe(
-	    		data => {
-	    			alert("Log in success! Welcome " + data.username + "!");
-					this.router.navigate(['/search']);
-	    		},
-	    		error => {
-	    			alert("Sign in is not success. Repeat please.");
-	    	});*/
+	public auth2: any;
+	public googleInit() {
+		gapi.load('auth2', () => {
+			this.auth2 = gapi.auth2.init({
+				client_id: '349221323855-92j9r4muhqh4ncos5qdp6dpmml6kqp3n.apps.googleusercontent.com',	// your-app-id
+				cookiepolicy: 'single_host_origin',
+				scope: 'profile email'
+			});
+			this.attachSignin(document.getElementById('googleBtn'));
+		});
+	}
+
+	public attachSignin(element) {
+		this.auth2.attachClickHandler(element, {},
+			(googleUser) => {
+				let profile = googleUser.getBasicProfile();
+				let user: AddUser = new AddUser();
+				let pwd = this.randomPas.generatePwd(8);
+				let dog = profile.getEmail().indexOf('@');
+				user.uid = profile.getEmail().slice(0, dog);
+				user.emailid = profile.getEmail();
+				user.name = profile.getName();
+				user.pwd = pwd;
+				console.log(user);
+				this.httpReg.postData(user)
+					.toPromise()
+					.then(resp => {
+						if (resp) {
+							this.httpLogin.login({"uid": user.uid,"pwd": user.pwd})
+								.then(data => {
+									if (data) {
+										alert("Login success! Have a nice day!");
+										this.router.navigate(['/search']);
+									} else {
+										alert("User is not registered!");
+										this.router.navigate(['/signin']);
+									}
+								});
+						}
+					})
+					.catch(error => console.log("ERROR: ", error));
+			}, 
+			(error) => {
+				alert(JSON.stringify(error, undefined, 2));
+			}
+		);
+	}
+
+	ngAfterViewInit(){
+		this.googleInit();
 	}
 }
