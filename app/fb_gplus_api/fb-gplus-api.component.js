@@ -1,4 +1,4 @@
-System.register(['@angular/core', '@angular/router', 'ng2-facebook-sdk', '../_services/http-add-user.service', '../_services/generate-pwd.service', '../_models/adduser'], function(exports_1, context_1) {
+System.register(['@angular/core', '@angular/router', 'ng2-facebook-sdk', '../_services/social-login.service', '../_services/generate-token.service', '../_models/social-login', 'rxjs/add/operator/toPromise'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['@angular/core', '@angular/router', 'ng2-facebook-sdk', '../_se
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, ng2_facebook_sdk_1, http_add_user_service_1, generate_pwd_service_1, adduser_1;
+    var core_1, router_1, ng2_facebook_sdk_1, social_login_service_1, generate_token_service_1, social_login_1;
     var FbGplusApiComponent;
     return {
         setters:[
@@ -23,24 +23,25 @@ System.register(['@angular/core', '@angular/router', 'ng2-facebook-sdk', '../_se
             function (ng2_facebook_sdk_1_1) {
                 ng2_facebook_sdk_1 = ng2_facebook_sdk_1_1;
             },
-            function (http_add_user_service_1_1) {
-                http_add_user_service_1 = http_add_user_service_1_1;
+            function (social_login_service_1_1) {
+                social_login_service_1 = social_login_service_1_1;
             },
-            function (generate_pwd_service_1_1) {
-                generate_pwd_service_1 = generate_pwd_service_1_1;
+            function (generate_token_service_1_1) {
+                generate_token_service_1 = generate_token_service_1_1;
             },
-            function (adduser_1_1) {
-                adduser_1 = adduser_1_1;
-            }],
+            function (social_login_1_1) {
+                social_login_1 = social_login_1_1;
+            },
+            function (_1) {}],
         execute: function() {
             FbGplusApiComponent = (function () {
-                function FbGplusApiComponent(fb, httpReg, randomPas, router) {
+                function FbGplusApiComponent(fb, httpToken, randomToken, router) {
                     this.fb = fb;
-                    this.httpReg = httpReg;
-                    this.randomPas = randomPas;
+                    this.httpToken = httpToken;
+                    this.randomToken = randomToken;
                     this.router = router;
                     var fbParams = {
-                        appId: '221102408303069',
+                        appId: '219595158509433',
                         xfbml: true,
                         version: 'v2.6'
                     };
@@ -49,31 +50,30 @@ System.register(['@angular/core', '@angular/router', 'ng2-facebook-sdk', '../_se
                 /* Log in Facebook */
                 FbGplusApiComponent.prototype.loginFB = function () {
                     var _this = this;
-                    this.fb.login()
+                    this.fb.login({ enable_profile_selector: true, return_scopes: true, scope: 'email' })
                         .then(function (res) {
+                        var access_token = res.authResponse.accessToken;
                         if (res.status === 'connected') {
-                            console.log('We are connected.');
-                            var accessToken = res.authResponse.accessToken;
-                            _this.fb.api('me?fields=id,name,email')
+                            _this.fb.api('me?fields=id')
                                 .then(function (res) {
-                                var pwd = _this.randomPas.generatePwd(8);
-                                var dog = res.email.indexOf('@');
-                                var user = new adduser_1.AddUser();
-                                user.uid = res.email.slice(0, dog);
-                                user.emailid = res.email;
-                                user.name = res.name;
-                                user.pwd = pwd;
-                                console.log('User: ', user);
-                                return user;
+                                var userToken = new social_login_1.SocialLogin();
+                                userToken.uid = res.id;
+                                userToken.token = access_token;
+                                console.log(userToken);
+                                return userToken;
                             })
                                 .then(function (obj) {
-                                _this.httpReg.postData(obj)
-                                    .subscribe(function (data) {
-                                    alert("Sign up success! Login: " + obj.uid + " Password: " + obj.pwd + " Welcome, my friend!");
-                                    _this.router.navigate(['/login']);
-                                }, function (error) {
-                                    alert("Log in is not success. Repeat please.");
-                                });
+                                _this.httpToken.postToken(obj)
+                                    .toPromise()
+                                    .then(function (resp) {
+                                    if (resp.status === 'OK') {
+                                        var token = _this.randomToken.generateToken(25);
+                                        localStorage.setItem('currentUser', JSON.stringify({ uid: obj.uid, token: token }));
+                                        alert('Social Login OK');
+                                        _this.router.navigate(['/search']);
+                                    }
+                                })
+                                    .catch(function (error) { return console.log("ERROR: ", error); });
                             });
                         }
                         else if (res.status === 'not_authorized') {
@@ -85,35 +85,61 @@ System.register(['@angular/core', '@angular/router', 'ng2-facebook-sdk', '../_se
                     })
                         .catch(function (error) { console.log(error); });
                 };
-                /* Log in Google+ */
-                FbGplusApiComponent.prototype.onGoogleSignInSuccess = function (event) {
-                    var googleUser = event.googleUser;
-                    var profile = googleUser.getBasicProfile();
-                    var pwd = this.randomPas.generatePwd(8);
-                    var dog = profile.getEmail().indexOf('@');
-                    var user = new adduser_1.AddUser();
-                    user.uid = profile.getEmail().slice(0, dog);
-                    user.emailid = profile.getEmail();
-                    user.name = profile.getName();
-                    user.pwd = pwd;
-                    console.log("user_gp: ", user);
-                    /*this.httpReg.postData(user)
-                        .subscribe(
-                            data => {
-                                alert("Log in success! Welcome " + data.username + "!");
-                                this.router.navigate(['/search']);
-                            },
-                            error => {
-                                alert("Sign in is not success. Repeat please.");
-                        });*/
+                FbGplusApiComponent.prototype.googleInit = function () {
+                    var _this = this;
+                    gapi.load('auth2', function () {
+                        _this.auth2 = gapi.auth2.init({
+                            client_id: '349221323855-92j9r4muhqh4ncos5qdp6dpmml6kqp3n.apps.googleusercontent.com',
+                            cookiepolicy: 'single_host_origin',
+                            scope: 'profile email'
+                        });
+                        _this.attachSignin(document.getElementById('googleBtn'));
+                    });
+                };
+                FbGplusApiComponent.prototype.attachSignin = function (element) {
+                    var _this = this;
+                    this.auth2.attachClickHandler(element, {}, function (googleUser) {
+                        var profile = googleUser.getBasicProfile();
+                        var user = new AddUser();
+                        var pwd = _this.randomPas.generatePwd(8);
+                        var dog = profile.getEmail().indexOf('@');
+                        user.uid = profile.getEmail().slice(0, dog);
+                        user.emailid = profile.getEmail();
+                        user.name = profile.getName();
+                        user.pwd = pwd;
+                        console.log(user);
+                        _this.httpReg.postData(user)
+                            .toPromise()
+                            .then(function (resp) {
+                            if (resp) {
+                                _this.httpLogin.login({ "uid": user.uid, "pwd": user.pwd })
+                                    .then(function (data) {
+                                    if (data) {
+                                        alert("Login success! Have a nice day!");
+                                        _this.router.navigate(['/search']);
+                                    }
+                                    else {
+                                        alert("User is not registered!");
+                                        _this.router.navigate(['/signin']);
+                                    }
+                                });
+                            }
+                        })
+                            .catch(function (error) { return console.log("ERROR: ", error); });
+                    }, function (error) {
+                        alert(JSON.stringify(error, undefined, 2));
+                    });
+                };
+                FbGplusApiComponent.prototype.ngAfterViewInit = function () {
+                    this.googleInit();
                 };
                 FbGplusApiComponent = __decorate([
                     core_1.Component({
                         selector: 'fb-gplus-api',
-                        template: "\n\t\t<div class=\"fb-gplus-api\">\n\t\t\t<button type=\"submit\" class=\"btn btn-fb\" (click)=\"loginFB()\">Log in with Facebook</button>\n\t\t\t<google-signin\n\t\t\t\tclientId=\"locify-test-c9420.apps.googleusercontent.com\"\n\t\t\t\twidth=\"300\"\n\t\t\t\ttheme=\"dark\"\n\t\t\t\tscope=\"email profile\"\n\t\t\t\tlongTitle=\"true\"\n\t\t\t\t(googleSignInSuccess)=\"onGoogleSignInSuccess($event)\">\n\t\t\t</google-signin>\n\t\t</div>\n\t",
-                        providers: [http_add_user_service_1.HttpAddUserService, generate_pwd_service_1.GeneratePwdService]
+                        template: "\n\t\t<div class=\"fb-gplus-api\">\n\t\t\t<button type=\"submit\" class=\"btn btn-fb\" (click)=\"loginFB()\">Log in with Facebook</button>\n\t\t\t<button class=\"btn btn-gplus\" id=\"googleBtn\">Sign up with Google +</button>\n\t\t</div>\n\t",
+                        providers: [generate_token_service_1.GenerateTokenService, social_login_service_1.SocialLoginService]
                     }), 
-                    __metadata('design:paramtypes', [ng2_facebook_sdk_1.FacebookService, http_add_user_service_1.HttpAddUserService, generate_pwd_service_1.GeneratePwdService, router_1.Router])
+                    __metadata('design:paramtypes', [ng2_facebook_sdk_1.FacebookService, social_login_service_1.SocialLoginService, generate_token_service_1.GenerateTokenService, router_1.Router])
                 ], FbGplusApiComponent);
                 return FbGplusApiComponent;
             }());

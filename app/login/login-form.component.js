@@ -40,13 +40,15 @@ System.register(['@angular/core', '@angular/router', '../_services/http.service'
                     var _this = this;
                     this.httpService.login(user)
                         .then(function (data) {
-                        console.log(data);
                         if (data) {
                             alert("Login success! Have a nice day!");
                             _this.router.navigate(['/search']);
                         }
-                    })
-                        .catch(function (error) { return alert("User is not registered!"); });
+                        else {
+                            alert("User is not registered!");
+                            _this.router.navigate(['/signin']);
+                        }
+                    });
                 };
                 LoginFormComponent = __decorate([
                     core_1.Component({

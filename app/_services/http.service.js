@@ -1,4 +1,4 @@
-System.register(['@angular/core', '@angular/http', 'rxjs/add/operator/toPromise', 'rxjs/add/operator/map', 'rxjs/add/operator/catch', 'rxjs/add/observable/throw'], function(exports_1, context_1) {
+System.register(['@angular/core', '@angular/http', 'rxjs/add/operator/toPromise'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -20,52 +20,12 @@ System.register(['@angular/core', '@angular/http', 'rxjs/add/operator/toPromise'
             function (http_1_1) {
                 http_1 = http_1_1;
             },
-            function (_1) {},
-            function (_2) {},
-            function (_3) {},
-            function (_4) {}],
+            function (_1) {}],
         execute: function() {
             HttpService = (function () {
                 function HttpService(http) {
                     this.http = http;
                 }
-                /*login(obj: User) {
-                    const body = JSON.stringify(obj);
-                    let headers = new Headers({ 'Content-Type': 'application/json;charset=utf-8' });
-            
-                    let promise = new Promise((resolve, reject) => {
-                        this.http.post('http://104.196.125.63:9000/api/signin', body, { headers: headers })
-                            .subscribe(
-                                resp => {
-                                    let token = resp.json() && resp.json().token;
-                                    if (token) {
-                                        this.token = token;
-                                        localStorage.setItem('currentUser', JSON.stringify({uid: obj.uid, token: token}));
-                                        resolve(true);
-                                    } else {
-                                        reject(new Error('Login or Password is not correct!'));
-                                    }
-                                });
-                    });
-            
-                    return promise
-                            .then(response => {
-                                if (response) {
-                                    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
-                                    let headers = new Headers({ 'Content-Type': 'application/json;charset=utf-8' });
-                                    this.http.post('http://104.196.125.63:9000/api/sendtoken', currentUser, { headers: headers })
-                                        .subscribe(
-                                            data => {
-                                                if (data.status === 200) {
-                                                    console.log("Status OK");
-                                                }
-                                            },
-                                            err => alert("Error")
-                                        );
-                                }
-                            })
-                            .catch(error => alert('Error: ' + error.message));
-                }*/
                 HttpService.prototype.login = function (obj) {
                     var _this = this;
                     var body = JSON.stringify(obj);
@@ -79,19 +39,7 @@ System.register(['@angular/core', '@angular/http', 'rxjs/add/operator/toPromise'
                             localStorage.setItem('currentUser', JSON.stringify({ uid: obj.uid, token: token }));
                             return true;
                         }
-                    })
-                        .then(function (bool) {
-                        if (bool) {
-                            var currentUser = JSON.parse(localStorage.getItem('currentUser'));
-                            return _this.http.post('http://104.196.125.63:9000/api/sendtoken', currentUser, { headers: headers });
-                        }
                     });
-                    /*.then(data => {
-                        if (data.status === 200) {
-                            console.log("Status OK");
-                        }
-                    })
-                    .catch(error => alert("Error: " + error));*/
                 };
                 HttpService.prototype.logout = function () {
                     this.token = null;

@@ -3,10 +3,9 @@ import { Router } from '@angular/router';
 
 import { FacebookService, FacebookInitParams, FacebookLoginResponse } from 'ng2-facebook-sdk';
 
-import { HttpService } from '../_services/http.service';
-import { HttpAddUserService } from '../_services/http-add-user.service';
-import { GeneratePwdService } from '../_services/generate-pwd.service';
-import { AddUser } from '../_models/adduser';
+import { SocialLoginService } from '../_services/social-login.service';
+import { GenerateTokenService } from '../_services/generate-token.service';
+import { SocialLogin } from '../_models/social-login';
 import 'rxjs/add/operator/toPromise';
 
 declare const gapi: any;
@@ -19,17 +18,16 @@ declare const gapi: any;
 			<button class="btn btn-gplus" id="googleBtn">Sign up with Google +</button>
 		</div>
 	`,
-	providers: [HttpAddUserService, GeneratePwdService, HttpService]
+	providers: [GenerateTokenService, SocialLoginService]
 })
 export class FbGplusApiComponent implements AfterViewInit {
 
 	constructor(private fb: FacebookService,
-				private httpReg: HttpAddUserService,
-				private randomPas: GeneratePwdService,
-				private router: Router,
-				private httpLogin: HttpService) {
+				private httpToken: SocialLoginService,
+				private randomToken: GenerateTokenService,
+				private router: Router) {
 		let fbParams: FacebookInitParams = {
-			appId: '221102408303069', // your-app-id
+			appId: '219595158509433', // your-app-id
 			xfbml: true,
 			version: 'v2.6'
 		};
@@ -40,34 +38,21 @@ export class FbGplusApiComponent implements AfterViewInit {
 	loginFB() {
 		this.fb.login({enable_profile_selector: true, return_scopes: true, scope: 'email'})
 			.then((res: FacebookLoginResponse) => {
+				let access_token = res.authResponse.accessToken;
 				if (res.status === 'connected') {
-					this.fb.api('me?fields=id,name,email')
+					this.fb.api('me?fields=id')
 						.then(res => {
-							let pwd = this.randomPas.generatePwd(8);
-							let dog = res.email.indexOf('@');
-							let user: AddUser = new AddUser();
-							user.uid = res.email.slice(0, dog);
-							user.emailid = res.email;
-							user.name = res.name;
-							user.pwd = pwd;
-							console.log(user);
-							return user;
+							let userToken: SocialLogin = new SocialLogin();
+							userToken.uid = res.id;
+							userToken.token = access_token;
+							return userToken;
 						})
 						.then(obj => {
-							this.httpReg.postData(obj)
+							this.httpToken.postToken(obj)
 								.toPromise()
 								.then(resp => {
-									if (resp) {
-										this.httpLogin.login({"uid": obj.uid,"pwd": obj.pwd})
-											.then(data => {
-												if (data) {
-													alert("Login success! Have a nice day!");
-													this.router.navigate(['/search']);
-												} else {
-													alert("User is not registered!");
-													this.router.navigate(['/signin']);
-												}
-											});
+									if (resp.status === 'OK') {
+										this.checkStatus(obj);
 									}
 								})
 								.catch(error => console.log("ERROR: ", error));
@@ -86,7 +71,7 @@ export class FbGplusApiComponent implements AfterViewInit {
 	public googleInit() {
 		gapi.load('auth2', () => {
 			this.auth2 = gapi.auth2.init({
-				client_id: '349221323855-92j9r4muhqh4ncos5qdp6dpmml6kqp3n.apps.googleusercontent.com',	// your-app-id
+				client_id: '309462390088-gjbirnlkpg403h9oph93sngsir4jigna.apps.googleusercontent.com',	// your-app-id
 				cookiepolicy: 'single_host_origin',
 				scope: 'profile email'
 			});
@@ -98,36 +83,28 @@ export class FbGplusApiComponent implements AfterViewInit {
 		this.auth2.attachClickHandler(element, {},
 			(googleUser) => {
 				let profile = googleUser.getBasicProfile();
-				let user: AddUser = new AddUser();
-				let pwd = this.randomPas.generatePwd(8);
-				let dog = profile.getEmail().indexOf('@');
-				user.uid = profile.getEmail().slice(0, dog);
-				user.emailid = profile.getEmail();
-				user.name = profile.getName();
-				user.pwd = pwd;
-				console.log(user);
-				this.httpReg.postData(user)
+				let userToken: SocialLogin = new SocialLogin();
+				userToken.uid = profile.getId();
+				userToken.token = googleUser.getAuthResponse().id_token;
+				this.httpToken.postToken(userToken)
 					.toPromise()
 					.then(resp => {
-						if (resp) {
-							this.httpLogin.login({"uid": user.uid,"pwd": user.pwd})
-								.then(data => {
-									if (data) {
-										alert("Login success! Have a nice day!");
-										this.router.navigate(['/search']);
-									} else {
-										alert("User is not registered!");
-										this.router.navigate(['/signin']);
-									}
-								});
+						if (resp.status === 'OK') {
+							this.checkStatus(userToken);
 						}
 					})
-					.catch(error => console.log("ERROR: ", error));
 			}, 
 			(error) => {
 				alert(JSON.stringify(error, undefined, 2));
 			}
 		);
+	}
+
+	checkStatus(user) {
+		let token = this.randomToken.generateToken(40);
+		localStorage.setItem('currentUser', JSON.stringify({uid: user.uid, token: token}));
+		alert("Login success! Have a nice day!");
+		this.router.navigate(['/search']);
 	}
 
 	ngAfterViewInit(){

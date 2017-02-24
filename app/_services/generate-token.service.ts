@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 
 @Injectable()
-export class GeneratePwdService {
+export class GenerateTokenService {
 
-	generatePwd(len) {
+	generateToken(len) {
 		var result = '';
 		var words = '0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM';
 		var max_position = words.length - 1;

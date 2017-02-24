@@ -11,17 +11,17 @@ System.register(['@angular/core'], function(exports_1, context_1) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var core_1;
-    var GeneratePwdService;
+    var GenerateTokenService;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
             }],
         execute: function() {
-            GeneratePwdService = (function () {
-                function GeneratePwdService() {
+            GenerateTokenService = (function () {
+                function GenerateTokenService() {
                 }
-                GeneratePwdService.prototype.generatePwd = function (len) {
+                GenerateTokenService.prototype.generateToken = function (len) {
                     var result = '';
                     var words = '0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM';
                     var max_position = words.length - 1;
@@ -31,14 +31,14 @@ System.register(['@angular/core'], function(exports_1, context_1) {
                     }
                     return result;
                 };
-                GeneratePwdService = __decorate([
+                GenerateTokenService = __decorate([
                     core_1.Injectable(), 
                     __metadata('design:paramtypes', [])
-                ], GeneratePwdService);
-                return GeneratePwdService;
+                ], GenerateTokenService);
+                return GenerateTokenService;
             }());
-            exports_1("GeneratePwdService", GeneratePwdService);
+            exports_1("GenerateTokenService", GenerateTokenService);
         }
     }
 });
-//# sourceMappingURL=generate-pwd.service.js.map
+//# sourceMappingURL=generate-token.service.js.map
