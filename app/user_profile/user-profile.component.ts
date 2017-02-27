@@ -1,9 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { Response } from '@angular/http';
+import { Component } from '@angular/core';
 import {
     NgForm,
-    FORM_DIRECTIVES,
-    REACTIVE_FROM_DIRECTIVES,
     FormBuilder,
     FormGroup,
     Validators,
@@ -14,17 +11,5 @@ import {
     moduleId: module.id,
     selector: 'user-profile',
     templateUrl: 'user-profile.component.html'
-
 })
-export class UserProfileComponent {
-
-
-}
-
-
-
-
-
-/**
- * Created by D on 24.01.2017.
- */
+export class UserProfileComponent {}

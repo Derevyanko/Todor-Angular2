@@ -35,11 +35,12 @@ System.register(['@angular/core', '@angular/router', 'ng2-facebook-sdk', '../_se
             function (_1) {}],
         execute: function() {
             FbGplusApiComponent = (function () {
-                function FbGplusApiComponent(fb, httpToken, randomToken, router) {
+                function FbGplusApiComponent(fb, httpToken, randomToken, router, zone) {
                     this.fb = fb;
                     this.httpToken = httpToken;
                     this.randomToken = randomToken;
                     this.router = router;
+                    this.zone = zone;
                     var fbParams = {
                         appId: '219595158509433',
                         xfbml: true,
@@ -59,7 +60,6 @@ System.register(['@angular/core', '@angular/router', 'ng2-facebook-sdk', '../_se
                                 var userToken = new social_login_1.SocialLogin();
                                 userToken.uid = res.id;
                                 userToken.token = access_token;
-                                console.log(userToken);
                                 return userToken;
                             })
                                 .then(function (obj) {
@@ -67,10 +67,7 @@ System.register(['@angular/core', '@angular/router', 'ng2-facebook-sdk', '../_se
                                     .toPromise()
                                     .then(function (resp) {
                                     if (resp.status === 'OK') {
-                                        var token = _this.randomToken.generateToken(25);
-                                        localStorage.setItem('currentUser', JSON.stringify({ uid: obj.uid, token: token }));
-                                        alert('Social Login OK');
-                                        _this.router.navigate(['/search']);
+                                        _this.checkStatus(obj);
                                     }
                                 })
                                     .catch(function (error) { return console.log("ERROR: ", error); });
@@ -89,7 +86,7 @@ System.register(['@angular/core', '@angular/router', 'ng2-facebook-sdk', '../_se
                     var _this = this;
                     gapi.load('auth2', function () {
                         _this.auth2 = gapi.auth2.init({
-                            client_id: '349221323855-92j9r4muhqh4ncos5qdp6dpmml6kqp3n.apps.googleusercontent.com',
+                            client_id: '309462390088-gjbirnlkpg403h9oph93sngsir4jigna.apps.googleusercontent.com',
                             cookiepolicy: 'single_host_origin',
                             scope: 'profile email'
                         });
@@ -99,36 +96,28 @@ System.register(['@angular/core', '@angular/router', 'ng2-facebook-sdk', '../_se
                 FbGplusApiComponent.prototype.attachSignin = function (element) {
                     var _this = this;
                     this.auth2.attachClickHandler(element, {}, function (googleUser) {
-                        var profile = googleUser.getBasicProfile();
-                        var user = new AddUser();
-                        var pwd = _this.randomPas.generatePwd(8);
-                        var dog = profile.getEmail().indexOf('@');
-                        user.uid = profile.getEmail().slice(0, dog);
-                        user.emailid = profile.getEmail();
-                        user.name = profile.getName();
-                        user.pwd = pwd;
-                        console.log(user);
-                        _this.httpReg.postData(user)
-                            .toPromise()
-                            .then(function (resp) {
-                            if (resp) {
-                                _this.httpLogin.login({ "uid": user.uid, "pwd": user.pwd })
-                                    .then(function (data) {
-                                    if (data) {
-                                        alert("Login success! Have a nice day!");
-                                        _this.router.navigate(['/search']);
-                                    }
-                                    else {
-                                        alert("User is not registered!");
-                                        _this.router.navigate(['/signin']);
-                                    }
-                                });
-                            }
-                        })
-                            .catch(function (error) { return console.log("ERROR: ", error); });
+                        _this.zone.run(function () {
+                            var profile = googleUser.getBasicProfile();
+                            var userToken = new social_login_1.SocialLogin();
+                            userToken.uid = profile.getId();
+                            userToken.token = googleUser.getAuthResponse().id_token;
+                            _this.httpToken.postToken(userToken)
+                                .toPromise()
+                                .then(function (resp) {
+                                if (resp.status === 'OK') {
+                                    _this.checkStatus(userToken);
+                                }
+                            });
+                        });
                     }, function (error) {
                         alert(JSON.stringify(error, undefined, 2));
                     });
+                };
+                FbGplusApiComponent.prototype.checkStatus = function (user) {
+                    var token = this.randomToken.generateToken(40);
+                    localStorage.setItem('currentUser', JSON.stringify({ uid: user.uid, token: token }));
+                    alert("Login success! Have a nice day!");
+                    this.router.navigate(['/search']);
                 };
                 FbGplusApiComponent.prototype.ngAfterViewInit = function () {
                     this.googleInit();
@@ -139,7 +128,7 @@ System.register(['@angular/core', '@angular/router', 'ng2-facebook-sdk', '../_se
                         template: "\n\t\t<div class=\"fb-gplus-api\">\n\t\t\t<button type=\"submit\" class=\"btn btn-fb\" (click)=\"loginFB()\">Log in with Facebook</button>\n\t\t\t<button class=\"btn btn-gplus\" id=\"googleBtn\">Sign up with Google +</button>\n\t\t</div>\n\t",
                         providers: [generate_token_service_1.GenerateTokenService, social_login_service_1.SocialLoginService]
                     }), 
-                    __metadata('design:paramtypes', [ng2_facebook_sdk_1.FacebookService, social_login_service_1.SocialLoginService, generate_token_service_1.GenerateTokenService, router_1.Router])
+                    __metadata('design:paramtypes', [ng2_facebook_sdk_1.FacebookService, social_login_service_1.SocialLoginService, generate_token_service_1.GenerateTokenService, router_1.Router, core_1.NgZone])
                 ], FbGplusApiComponent);
                 return FbGplusApiComponent;
             }());

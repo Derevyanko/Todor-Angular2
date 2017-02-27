@@ -5,16 +5,4 @@ import { Component } from '@angular/core';
     selector: 'search-page',
     templateUrl: 'search-page.component.html'
 })
-export class  SearchPageComponent {
-
-
-
-
-}
-
-
-
-
-/**
- * Created by D on 18.01.2017.
- */
+export class  SearchPageComponent {}

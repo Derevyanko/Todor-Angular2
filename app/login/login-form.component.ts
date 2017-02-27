@@ -3,8 +3,6 @@ import { Response } from '@angular/http';
 import { Router } from '@angular/router';
 import {
     NgForm,
-    FORM_DIRECTIVES,
-    REACTIVE_FROM_DIRECTIVES,
     FormBuilder,
     FormGroup,
     Validators,

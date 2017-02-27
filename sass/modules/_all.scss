@@ -40,7 +40,6 @@ uploader {
     height: 120px;
     width: 100%;
     position: absolute;
-    /*padding-left: 0;*/
   }
   img {
     z-index: 2;
@@ -91,7 +90,7 @@ body {
   width: 100%;
   margin: 0 auto;
   overflow-x: hidden;
-  background: rgba(0, 0, 0, 0) url("../../img/bg.png") no-repeat;
+  background: rgba(0, 0, 0, 0) url("../img/bg.png") no-repeat;
   background-size: cover;
   background-position: left bottom;
   background-attachment: fixed;
@@ -204,7 +203,6 @@ footer {
     color: #fff;
     font-size: 45px;
     font-weight: 300;
-    /*line-height: 1.5;*/
     b {
       color: #abd154;
     }
@@ -214,7 +212,6 @@ footer {
     font-size: 16px;
     font-weight: 700;
     margin: 15px 0 0;
-    /*margin: 0;*/
   }
 }
 
@@ -257,7 +254,6 @@ footer {
       height: 55px;
       padding: 0 25px;
       cursor: pointer;
-      /*background: transparent;*/
       background: rgba(0, 0, 0, 0);
       border: 0;
       color: #484848;
@@ -319,7 +315,6 @@ footer {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  /*-ms-flex-pack: distribute;*/
   -ms-flex-pack: distribute;
   justify-content: space-around;
   -ms-flex-flow: row nowrap;

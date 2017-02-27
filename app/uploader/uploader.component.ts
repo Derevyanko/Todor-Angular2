@@ -1,4 +1,3 @@
-
 import { Component } from '@angular/core';
 import {
     NgForm,
@@ -11,12 +10,12 @@ import {
 @Component({
     moduleId: module.id,
     selector: 'uploader',
+    templateUrl: 'uploader.component.html',
     styles:[` 
         uploader-file {
        width:100%;
         }
-    `],
-    templateUrl: 'uploader.component.html',
+    `]
 })
 
 export class UploaderFileComponent {
@@ -35,8 +34,3 @@ export class UploaderFileComponent {
         }
     }
 }
-
-
-/**
- * Created by D on 01.02.2017.
- */

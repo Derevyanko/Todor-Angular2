@@ -52,11 +52,8 @@
   }
   header {
     background: #737b7e;
-    /*padding-top:30px;*/
-    /*padding: 2%;*/
     display: block;
     padding-bottom: 0;
-    /*align-items: flex-start;*/
   }
   .close {
     display: none;
@@ -81,8 +78,6 @@
       position: relative;
       background: #80888b none repeat scroll 0 0;
       z-index: 10;
-      //height:100vh;
-      //transition: all 1s ease-in;
       li {
         margin: 0 auto;
         display: block;
@@ -100,7 +95,7 @@
   .label-toggle {
     cursor: pointer;
     margin-right: 10px;
-    background: url("../../img/hamburger_menu.png");
+    background: url("../img/hamburger_menu.png");
     background-size: 30px;
     cursor: pointer;
     display: block;
@@ -112,7 +107,7 @@
     margin-bottom: 0;
   }
   .label-toggle-click {
-    background: url("../../img/humb_close.png");
+    background: url("../img/humb_close.png");
     background-size: cover;
     height: 25px;
   }

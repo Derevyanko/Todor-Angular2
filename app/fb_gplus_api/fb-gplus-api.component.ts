@@ -1,4 +1,4 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { FacebookService, FacebookInitParams, FacebookLoginResponse } from 'ng2-facebook-sdk';
@@ -25,7 +25,8 @@ export class FbGplusApiComponent implements AfterViewInit {
 	constructor(private fb: FacebookService,
 				private httpToken: SocialLoginService,
 				private randomToken: GenerateTokenService,
-				private router: Router) {
+				private router: Router,
+				private zone: NgZone) {
 		let fbParams: FacebookInitParams = {
 			appId: '219595158509433', // your-app-id
 			xfbml: true,
@@ -82,17 +83,19 @@ export class FbGplusApiComponent implements AfterViewInit {
 	public attachSignin(element) {
 		this.auth2.attachClickHandler(element, {},
 			(googleUser) => {
-				let profile = googleUser.getBasicProfile();
-				let userToken: SocialLogin = new SocialLogin();
-				userToken.uid = profile.getId();
-				userToken.token = googleUser.getAuthResponse().id_token;
-				this.httpToken.postToken(userToken)
-					.toPromise()
-					.then(resp => {
-						if (resp.status === 'OK') {
-							this.checkStatus(userToken);
-						}
-					})
+				this.zone.run( () => {
+					let profile = googleUser.getBasicProfile();
+					let userToken: SocialLogin = new SocialLogin();
+					userToken.uid = profile.getId();
+					userToken.token = googleUser.getAuthResponse().id_token;
+					this.httpToken.postToken(userToken)
+						.toPromise()
+						.then(resp => {
+							if (resp.status === 'OK') {
+								this.checkStatus(userToken);
+							}
+						})
+				});
 			}, 
 			(error) => {
 				alert(JSON.stringify(error, undefined, 2));

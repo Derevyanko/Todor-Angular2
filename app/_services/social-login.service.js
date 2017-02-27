@@ -33,7 +33,10 @@ System.register(['@angular/core', '@angular/http', 'rxjs/Observable', 'rxjs/add/
                 }
                 SocialLoginService.prototype.postToken = function (obj) {
                     var body = JSON.stringify(obj);
-                    var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+                    var headers = new http_1.Headers({
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + obj.token
+                    });
                     return this.http.post('http://104.196.125.63:9000/api/sendtoken', body, { headers: headers })
                         .map(function (resp) { return resp.json(); })
                         .catch(function (error) { return Observable_1.Observable.throw(error); });

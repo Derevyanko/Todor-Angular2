@@ -13,15 +13,4 @@ import {
     templateUrl: 'business-profile.component.html',
 })
 
-export class BusinessProfileComponent {
-
-
-}
-
-
-
-
-
-/**
- * Created by D on 24.01.2017.
- */
+export class BusinessProfileComponent {}
