@@ -41,15 +41,21 @@ export class FbGplusApiComponent implements AfterViewInit {
 			.then((res: FacebookLoginResponse) => {
 				let access_token = res.authResponse.accessToken;
 				if (res.status === 'connected') {
-					this.fb.api('me?fields=id')
+					this.fb.api('me?fields=id,name,email')
 						.then(res => {
-							let userToken: SocialLogin = new SocialLogin();
-							userToken.uid = res.id;
-							userToken.token = access_token;
-							return userToken;
+							let objFB = {
+								name: res.name,
+								uid: res.id,
+								emailid: res.email,
+								access_token: access_token
+							}
+							return objFB;
 						})
 						.then(obj => {
-							this.httpToken.postToken(obj)
+							let userToken: SocialLogin = new SocialLogin();
+							userToken.uid = obj.uid;
+							userToken.token = obj.access_token;
+							this.httpToken.postToken(userToken)
 								.toPromise()
 								.then(resp => {
 									if (resp.status === 'OK') {
@@ -85,6 +91,10 @@ export class FbGplusApiComponent implements AfterViewInit {
 			(googleUser) => {
 				this.zone.run( () => {
 					let profile = googleUser.getBasicProfile();
+					let objGP = new Object();
+					objGP.name = profile.getName();
+					objGP.uid = profile.getId();
+					objGP.emailid = profile.getEmail();
 					let userToken: SocialLogin = new SocialLogin();
 					userToken.uid = profile.getId();
 					userToken.token = googleUser.getAuthResponse().id_token;
@@ -92,7 +102,7 @@ export class FbGplusApiComponent implements AfterViewInit {
 						.toPromise()
 						.then(resp => {
 							if (resp.status === 'OK') {
-								this.checkStatus(userToken);
+								this.checkStatus(objGP);
 							}
 						})
 				});
@@ -103,9 +113,9 @@ export class FbGplusApiComponent implements AfterViewInit {
 		);
 	}
 
-	checkStatus(user) {
+	checkStatus(userInfo) {
 		let token = this.randomToken.generateToken(40);
-		localStorage.setItem('currentUser', JSON.stringify({uid: user.uid, token: token}));
+		localStorage.setItem('currentUser', JSON.stringify({uid: userInfo.uid, name: userInfo.name, emailid: userInfo.emailid, token: token, auth: "social"}));
 		alert("Login success! Have a nice day!");
 		this.router.navigate(['/search']);
 	}

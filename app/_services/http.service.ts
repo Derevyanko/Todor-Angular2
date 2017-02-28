@@ -19,7 +19,7 @@ export class HttpService{
                     let token = response.json() && response.json().token;
                     if (token) {
                         this.token = token;
-                        localStorage.setItem('currentUser', JSON.stringify({uid: obj.uid, token: token}));
+                        localStorage.setItem('currentUser', JSON.stringify({uid: obj.uid, token: token, auth: "native"}));
                         return true;
                     }
                 });
