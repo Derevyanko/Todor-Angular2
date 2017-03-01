@@ -34,7 +34,4 @@ System.register(['@angular/core'], function(exports_1, context_1) {
         }
     }
 });
-/**
- * Created by D on 18.01.2017.
- */
 //# sourceMappingURL=not-found.component.js.map

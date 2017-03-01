@@ -313,6 +313,33 @@ form {
       -webkit-appearance: none;
       -moz-appearance: none;
     }
+
+    my-date-picker { width: 47% }
+    .mydp {
+      height: 54px;
+      border-radius: 25px;
+      .selectiongroup {
+        border-radius: 25px;
+      }
+      .selection {
+        width: 100% !important;
+        height: 54px !important;
+        padding: 0 !important;
+        line-height: 54px !important;
+        font-family: $general-font;
+        border-radius: 25px;
+        color: #7f878a;
+      }
+      .selbtngroup {
+        height: 54px !important;
+        button.btnpicker {
+          border-radius: 0 25px 25px 0;
+        }
+        button span {
+          color: #D22425;
+        }
+      }
+    }
   }
 
   textarea[name="bio"] {

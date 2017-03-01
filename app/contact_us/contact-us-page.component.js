@@ -11,28 +11,29 @@ System.register(['@angular/core'], function(exports_1, context_1) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var core_1;
-    var SearchPageComponent;
+    var ContactUsPageComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
             }],
         execute: function() {
-            SearchPageComponent = (function () {
-                function SearchPageComponent() {
+            ContactUsPageComponent = (function () {
+                function ContactUsPageComponent() {
                 }
-                SearchPageComponent = __decorate([
+                ContactUsPageComponent = __decorate([
                     core_1.Component({
                         moduleId: module.id,
-                        selector: 'search-page',
-                        templateUrl: 'search-page.component.html'
+                        selector: 'contact-us-page',
+                        templateUrl: 'contact-us-page.component.html',
+                        styles: ["\n\t\tp {\n\t\t\tcolor: #fff;\n\t\t}\n    "]
                     }), 
                     __metadata('design:paramtypes', [])
-                ], SearchPageComponent);
-                return SearchPageComponent;
+                ], ContactUsPageComponent);
+                return ContactUsPageComponent;
             }());
-            exports_1("SearchPageComponent", SearchPageComponent);
+            exports_1("ContactUsPageComponent", ContactUsPageComponent);
         }
     }
 });
-//# sourceMappingURL=search-page.component.js.map
+//# sourceMappingURL=contact-us-page.component.js.map

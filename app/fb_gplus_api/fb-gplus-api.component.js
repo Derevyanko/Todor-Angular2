@@ -55,15 +55,21 @@ System.register(['@angular/core', '@angular/router', 'ng2-facebook-sdk', '../_se
                         .then(function (res) {
                         var access_token = res.authResponse.accessToken;
                         if (res.status === 'connected') {
-                            _this.fb.api('me?fields=id')
+                            _this.fb.api('me?fields=id,name,email')
                                 .then(function (res) {
-                                var userToken = new social_login_1.SocialLogin();
-                                userToken.uid = res.id;
-                                userToken.token = access_token;
-                                return userToken;
+                                var objFB = {
+                                    name: res.name,
+                                    uid: res.id,
+                                    emailid: res.email,
+                                    access_token: access_token
+                                };
+                                return objFB;
                             })
                                 .then(function (obj) {
-                                _this.httpToken.postToken(obj)
+                                var userToken = new social_login_1.SocialLogin();
+                                userToken.uid = obj.uid;
+                                userToken.token = obj.access_token;
+                                _this.httpToken.postToken(userToken)
                                     .toPromise()
                                     .then(function (resp) {
                                     if (resp.status === 'OK') {
@@ -98,6 +104,11 @@ System.register(['@angular/core', '@angular/router', 'ng2-facebook-sdk', '../_se
                     this.auth2.attachClickHandler(element, {}, function (googleUser) {
                         _this.zone.run(function () {
                             var profile = googleUser.getBasicProfile();
+                            var objGP = {
+                                name: profile.getName(),
+                                uid: profile.getId(),
+                                emailid: profile.getEmail()
+                            };
                             var userToken = new social_login_1.SocialLogin();
                             userToken.uid = profile.getId();
                             userToken.token = googleUser.getAuthResponse().id_token;
@@ -105,7 +116,7 @@ System.register(['@angular/core', '@angular/router', 'ng2-facebook-sdk', '../_se
                                 .toPromise()
                                 .then(function (resp) {
                                 if (resp.status === 'OK') {
-                                    _this.checkStatus(userToken);
+                                    _this.checkStatus(objGP);
                                 }
                             });
                         });
@@ -113,9 +124,9 @@ System.register(['@angular/core', '@angular/router', 'ng2-facebook-sdk', '../_se
                         alert(JSON.stringify(error, undefined, 2));
                     });
                 };
-                FbGplusApiComponent.prototype.checkStatus = function (user) {
+                FbGplusApiComponent.prototype.checkStatus = function (userInfo) {
                     var token = this.randomToken.generateToken(40);
-                    localStorage.setItem('currentUser', JSON.stringify({ uid: user.uid, token: token }));
+                    localStorage.setItem('currentUser', JSON.stringify({ uid: userInfo.uid, name: userInfo.name, emailid: userInfo.emailid, token: token, auth: "social" }));
                     alert("Login success! Have a nice day!");
                     this.router.navigate(['/search']);
                 };

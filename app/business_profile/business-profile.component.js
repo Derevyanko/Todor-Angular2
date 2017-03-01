@@ -35,7 +35,4 @@ System.register(['@angular/core'], function(exports_1, context_1) {
         }
     }
 });
-/**
- * Created by D on 24.01.2017.
- */
 //# sourceMappingURL=business-profile.component.js.map

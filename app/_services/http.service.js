@@ -36,7 +36,7 @@ System.register(['@angular/core', '@angular/http', 'rxjs/add/operator/toPromise'
                         var token = response.json() && response.json().token;
                         if (token) {
                             _this.token = token;
-                            localStorage.setItem('currentUser', JSON.stringify({ uid: obj.uid, token: token }));
+                            localStorage.setItem('currentUser', JSON.stringify({ uid: obj.uid, token: token, auth: "native" }));
                             return true;
                         }
                     });

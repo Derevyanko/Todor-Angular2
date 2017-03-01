@@ -1,7 +1,7 @@
-System.register(['@angular/router', './_guards/guards', './register/authorization-form.component', './login/login-form.component', './search_page/search-page.component', './not_found/not-found.component', './user_profile/user-profile.component', './business_profile/business-profile.component'], function(exports_1, context_1) {
+System.register(['@angular/router', './_guards/guards', './register/authorization-form.component', './login/login-form.component', './search_page/search-page.component', './about_page/about-page.component', './contact_us/contact-us-page.component', './not_found/not-found.component', './user_profile/user-profile.component', './business_profile/business-profile.component'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
-    var router_1, guards_1, authorization_form_component_1, login_form_component_1, search_page_component_1, not_found_component_1, user_profile_component_1, business_profile_component_1;
+    var router_1, guards_1, authorization_form_component_1, login_form_component_1, search_page_component_1, about_page_component_1, contact_us_page_component_1, not_found_component_1, user_profile_component_1, business_profile_component_1;
     var appRoutes, ROUTING;
     return {
         setters:[
@@ -20,6 +20,12 @@ System.register(['@angular/router', './_guards/guards', './register/authorizatio
             function (search_page_component_1_1) {
                 search_page_component_1 = search_page_component_1_1;
             },
+            function (about_page_component_1_1) {
+                about_page_component_1 = about_page_component_1_1;
+            },
+            function (contact_us_page_component_1_1) {
+                contact_us_page_component_1 = contact_us_page_component_1_1;
+            },
             function (not_found_component_1_1) {
                 not_found_component_1 = not_found_component_1_1;
             },
@@ -33,6 +39,8 @@ System.register(['@angular/router', './_guards/guards', './register/authorizatio
             appRoutes = [
                 { path: '', redirectTo: '/search', pathMatch: 'full' },
                 { path: 'search', component: search_page_component_1.SearchPageComponent },
+                { path: 'about', component: about_page_component_1.AboutPageComponent },
+                { path: 'contact_us', component: contact_us_page_component_1.ContactUsPageComponent },
                 { path: 'uprofile', component: user_profile_component_1.UserProfileComponent, canActivate: [guards_1.AuthGuard] },
                 { path: 'bprofile', component: business_profile_component_1.BusinessProfileComponent, canActivate: [guards_1.AuthGuard] },
                 { path: 'signin', component: authorization_form_component_1.AuthorizationFormComponent },

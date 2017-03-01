@@ -362,15 +362,50 @@ h4 {
   -webkit-appearance: none;
   -moz-appearance: none;
 }
-
+/* line 317, ../sass/forms.scss */
+.user-profile my-date-picker {
+  width: 47%;
+}
 /* line 318, ../sass/forms.scss */
+.user-profile .mydp {
+  height: 54px;
+  border-radius: 25px;
+}
+/* line 321, ../sass/forms.scss */
+.user-profile .mydp .selectiongroup {
+  border-radius: 25px;
+}
+/* line 324, ../sass/forms.scss */
+.user-profile .mydp .selection {
+  width: 100% !important;
+  height: 54px !important;
+  padding: 0 !important;
+  line-height: 54px !important;
+  font-family: "Lato", sans-serif;
+  border-radius: 25px;
+  color: #7f878a;
+}
+/* line 333, ../sass/forms.scss */
+.user-profile .mydp .selbtngroup {
+  height: 54px !important;
+}
+/* line 335, ../sass/forms.scss */
+.user-profile .mydp .selbtngroup button.btnpicker {
+  border-radius: 0 25px 25px 0;
+}
+/* line 338, ../sass/forms.scss */
+.user-profile .mydp .selbtngroup button span {
+  color: #D22425;
+}
+
+/* line 345, ../sass/forms.scss */
 textarea[name="bio"] {
   background: url("../img/icons/bio.svg") no-repeat;
   background-size: 4%;
   background-position: 18px 0px;
 }
 
-/* line 324, ../sass/forms.scss */
+/* line 351, ../sass/forms.scss */
 select[name="gender"] {
   background: url("../img/icons/gender.svg") no-repeat;
   background-size: 12%;
@@ -378,7 +413,7 @@ select[name="gender"] {
   background-position: 15px;
 }
 
-/* line 331, ../sass/forms.scss */
+/* line 358, ../sass/forms.scss */
 input[name="birthday"] {
   background: url("../img/icons/birthday.svg") no-repeat;
   background-size: 9%;

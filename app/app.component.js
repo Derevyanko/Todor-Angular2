@@ -39,7 +39,6 @@ System.register(['@angular/core'], function(exports_1, context_1) {
                     $('.label-toggle').addClass('label-toggle-click');
                     navMenu.toggle(function () {
                         var menuClose = $('#navigation-menu').css('display');
-                        console.log(menuClose + ' test');
                         linkActive.click(function () {
                             navMenu.css('display', 'none');
                             $('.label-toggle').removeClass('label-toggle-click');
@@ -50,31 +49,26 @@ System.register(['@angular/core'], function(exports_1, context_1) {
                             $('body').css('overflow', 'hidden');
                             $('nav ul').css('height', '100%');
                             $('nav ul').css('position', 'fixed');
-                            console.log('test display block');
                         }
                         else if (menuClose == 'none') {
                             $('.label-toggle').removeClass('label-toggle-click');
                             $('body').css('overflow', 'visible');
                             $('nav ul').css('height', 'auto');
                             $('nav ul').css('position', 'relative');
-                            console.log('test display none');
                         }
                     });
                     $(window).resize(function () {
                         var menuC = $('#navigation-menu').css('display');
                         var width = $(window).width();
-                        console.log(width);
                         if (width > 768) {
                             $('#navigation-menu').css('display', 'flex');
                             $('body').css('overflow', 'visible');
                             $('nav ul').css('height', 'auto');
                             $('nav ul').css('position', 'relative');
-                            console.log(width + 'if');
                         }
                         else if (width < 768 && menuC == 'block') {
                             $('nav ul').css('height', '100%');
                             $('nav ul').css('position', 'fixed');
-                            console.log('width < 768 && menuC == block');
                         }
                         else if (width < 768) {
                             $('.label-toggle').removeClass('label-toggle-click');
@@ -89,8 +83,8 @@ System.register(['@angular/core'], function(exports_1, context_1) {
                     core_1.Component({
                         moduleId: module.id,
                         selector: 'my-app',
-                        styles: [" \n        .active a {\n        color:#fff;\n        }\n    "],
-                        templateUrl: './app.component.html'
+                        templateUrl: './app.component.html',
+                        styles: [" \n        .active a {\n        color:#fff;\n        }\n    "]
                     }), 
                     __metadata('design:paramtypes', [])
                 ], AppComponent);

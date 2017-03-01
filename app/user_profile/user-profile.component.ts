@@ -9,6 +9,8 @@ import {
 import { GetUserinfoService } from '../_services/get-userinfo.service';
 import { AddUser } from '../_models/adduser';
 
+import {IMyOptions, IMyDateModel} from 'mydatepicker';
+
 @Component({
     moduleId: module.id,
     selector: 'user-profile',
@@ -16,6 +18,16 @@ import { AddUser } from '../_models/adduser';
     providers: [GetUserinfoService]
 })
 export class UserProfileComponent implements OnInit {
+
+	private myDatePickerOptions: IMyOptions = {
+	    dateFormat: 'mm/dd/yyyy',
+	    selectionTxtFontSize: '16px'
+	};
+
+	onDateChanged(event: IMyDateModel) {
+		event.date;
+    }
+
 	user: AddUser = new AddUser();
 
 	currentUser = JSON.parse(localStorage.getItem('currentUser'));

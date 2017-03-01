@@ -3,6 +3,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {FormsModule}   from '@angular/forms';
 import {HttpModule}   from '@angular/http';
 import {ROUTING}        from './app.routing';
+import { MyDatePickerModule } from 'mydatepicker';
 
 import {UploaderFileComponent} from './uploader/uploader.component'
 import {AuthGuard} from './_guards/guards';
@@ -11,6 +12,8 @@ import {EqualValidator} from './_directives/equal-validator.directive';
 import {AuthorizationFormComponent} from './register/authorization-form.component';
 import {LoginFormComponent} from './login/login-form.component';
 import {SearchPageComponent} from './search_page/search-page.component';
+import { AboutPageComponent } from './about_page/about-page.component';
+import { ContactUsPageComponent } from './contact_us/contact-us-page.component';
 import {NotFoundComponent} from './not_found/not-found.component';
 import {UserProfileComponent} from './user_profile/user-profile.component';
 import {BusinessProfileComponent} from './business_profile/business-profile.component';
@@ -23,7 +26,8 @@ import { FacebookService } from 'ng2-facebook-sdk';
         BrowserModule,
         FormsModule,
         HttpModule,
-        ROUTING
+        ROUTING,
+        MyDatePickerModule
     ],
     declarations: [
         EqualValidator,
@@ -31,6 +35,8 @@ import { FacebookService } from 'ng2-facebook-sdk';
         LoginFormComponent,
         AuthorizationFormComponent,
         SearchPageComponent,
+        AboutPageComponent,
+        ContactUsPageComponent,
         NotFoundComponent,
         UserProfileComponent,
         BusinessProfileComponent,

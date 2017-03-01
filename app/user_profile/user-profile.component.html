@@ -1,21 +1,18 @@
 <div class ="user-profile-container">
     <h2>User <b>Profile</b></h2>
-    <form class="user-profile"  #uprofile="ngForm" >
+    <form class="user-profile" #uprofile="ngForm" >
         <div class="form-group">
             <input type="text" class="form-control"
-                   name="name"  placeholder = "Name" maxlength="25" ngModel #name="ngModel" [(ngModel)]="user.name" required >
+                   name="name" placeholder = "Name" maxlength="25" ngModel #name="ngModel" [(ngModel)]="user.name" required >
             <input type="text" class="form-control"
-                   name="uname"  placeholder = "Username" maxlength="25" ngModel #uname="ngModel" [(ngModel)]="user.uid" required >
+                   name="uname" placeholder="Username" maxlength="25" ngModel #uname="ngModel" [(ngModel)]="user.uid" required>
         </div>
         <div class="form-group">
             <input type="email" class="form-control"
                    name="email"  placeholder = "Email" maxlength="25" ngModel #email="ngModel" [(ngModel)]="user.emailid"
                    pattern="[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+" required >
-            <!--<small [hidden]="email.valid || (email.pristine && !f.submitted)" class="text-danger">-->
-                <!--Email is required and format should be <i>john@doe.com</i>.-->
-            <!--</small>-->
-            <input type="text" class="form-control"
-                   name="phone"  placeholder = "Phone Numder" maxlength="25" ngModel #phone="ngModel"  pattern="[0-9]{10}" required >
+            <input type="tel" class="form-control"
+                   name="phone" placeholder = "Phone Numder" maxlength="25" ngModel #phone="ngModel" pattern="[0-9]{10}">
         </div>
         <h4>Optional</h4>
         <textarea name="bio" class="form-control" placeholder="Bio"></textarea>
@@ -25,25 +22,21 @@
                 <option >Male</option>
                 <option>Female</option>
             </select>
-            <input type="date" class="form-control" name="birthday"
-                   placeholder = "Birthday" maxlength="25" min="1920-01-01" max="2008-01-01" ngModel #birthday="ngModel" required >
+            <my-date-picker [options]="myDatePickerOptions" (dateChanged)="onDateChanged($event)" placeholder="Birthday"></my-date-picker>
         </div>
         <div class="form-group">
             <input type="text" class="form-control"
-                   name="adress"  placeholder = "Address" maxlength="25" ngModel #adress="ngModel" required >
+                   name="adress" placeholder="Address" maxlength="25" ngModel #adress="ngModel">
             <div class="load-file">
-            <input type="text" class="form-control" name="user-photo"  placeholder = "User Photo"
+            <input type="text" class="form-control" name="user-photo" placeholder = "User Photo"
                    maxlength="25" ngModel #bphoto="ngModel" disabled >
                 <uploader></uploader>
             </div>
-
         </div>
         <div class ="form-link">
         <a href="#" class="form-link">By signing up, you agree to Locify's Terms of Service and Privacy Policy</a></div>
         <div class="form-btn">
             <button type="submit" class="btn">Submit</button>
         </div>
-
     </form>
-
 </div>

@@ -91,10 +91,11 @@ export class FbGplusApiComponent implements AfterViewInit {
 			(googleUser) => {
 				this.zone.run( () => {
 					let profile = googleUser.getBasicProfile();
-					let objGP = new Object();
-					objGP.name = profile.getName();
-					objGP.uid = profile.getId();
-					objGP.emailid = profile.getEmail();
+					let objGP = {
+						name: profile.getName(),
+						uid: profile.getId(),
+						emailid: profile.getEmail()
+					};
 					let userToken: SocialLogin = new SocialLogin();
 					userToken.uid = profile.getId();
 					userToken.token = googleUser.getAuthResponse().id_token;

@@ -11,28 +11,29 @@ System.register(['@angular/core'], function(exports_1, context_1) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var core_1;
-    var SearchPageComponent;
+    var AboutPageComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
             }],
         execute: function() {
-            SearchPageComponent = (function () {
-                function SearchPageComponent() {
+            AboutPageComponent = (function () {
+                function AboutPageComponent() {
                 }
-                SearchPageComponent = __decorate([
+                AboutPageComponent = __decorate([
                     core_1.Component({
                         moduleId: module.id,
-                        selector: 'search-page',
-                        templateUrl: 'search-page.component.html'
+                        selector: 'about-page',
+                        templateUrl: 'about-page.component.html',
+                        styles: ["\n\t\tp {\n\t\t\tcolor: #fff;\n\t\t}\n    "]
                     }), 
                     __metadata('design:paramtypes', [])
-                ], SearchPageComponent);
-                return SearchPageComponent;
+                ], AboutPageComponent);
+                return AboutPageComponent;
             }());
-            exports_1("SearchPageComponent", SearchPageComponent);
+            exports_1("AboutPageComponent", AboutPageComponent);
         }
     }
 });
-//# sourceMappingURL=search-page.component.js.map
+//# sourceMappingURL=about-page.component.js.map
