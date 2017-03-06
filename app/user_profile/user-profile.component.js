@@ -1,4 +1,4 @@
-System.register(['@angular/core', '../_services/get-userinfo.service', '../_models/adduser'], function(exports_1, context_1) {
+System.register(['@angular/core', '../_services/get-userinfo.service', '../_services/update-user-info.service', '../_models/updateuser'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['@angular/core', '../_services/get-userinfo.service', '../_mode
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, get_userinfo_service_1, adduser_1;
+    var core_1, get_userinfo_service_1, update_user_info_service_1, updateuser_1;
     var UserProfileComponent;
     return {
         setters:[
@@ -20,16 +20,27 @@ System.register(['@angular/core', '../_services/get-userinfo.service', '../_mode
             function (get_userinfo_service_1_1) {
                 get_userinfo_service_1 = get_userinfo_service_1_1;
             },
-            function (adduser_1_1) {
-                adduser_1 = adduser_1_1;
+            function (update_user_info_service_1_1) {
+                update_user_info_service_1 = update_user_info_service_1_1;
+            },
+            function (updateuser_1_1) {
+                updateuser_1 = updateuser_1_1;
             }],
         execute: function() {
             UserProfileComponent = (function () {
-                function UserProfileComponent(getInfo) {
+                function UserProfileComponent(getInfo, updateUserInfo) {
                     this.getInfo = getInfo;
-                    this.user = new adduser_1.AddUser();
+                    this.updateUserInfo = updateUserInfo;
+                    this.myDatePickerOptions = {
+                        dateFormat: 'mm/dd/yyyy',
+                        selectionTxtFontSize: '16px'
+                    };
+                    this.user = new updateuser_1.UpdateUser();
                     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
                 }
+                UserProfileComponent.prototype.onDateChanged = function (event) {
+                    event.date;
+                };
                 UserProfileComponent.prototype.ngOnInit = function () {
                     var _this = this;
                     if (localStorage.getItem('currentUser') && this.currentUser.auth === "native") {
@@ -42,19 +53,28 @@ System.register(['@angular/core', '../_services/get-userinfo.service', '../_mode
                     }
                     else if (localStorage.getItem('currentUser') && this.currentUser.auth === "social") {
                         var dog = this.currentUser.emailid.indexOf("@");
-                        this.user.uid = this.currentUser.emailid.slice(0, dog);
                         this.user.name = this.currentUser.name;
+                        this.user.uid = this.currentUser.emailid.slice(0, dog);
                         this.user.emailid = this.currentUser.emailid;
                     }
+                };
+                UserProfileComponent.prototype.update = function (user) {
+                    this.updateUserInfo.updateInfo(user)
+                        .subscribe(function (data) {
+                        alert("Data updated successfully!");
+                    }, function (error) {
+                        alert("Updated data failed!");
+                        console.log(user);
+                    });
                 };
                 UserProfileComponent = __decorate([
                     core_1.Component({
                         moduleId: module.id,
                         selector: 'user-profile',
                         templateUrl: 'user-profile.component.html',
-                        providers: [get_userinfo_service_1.GetUserinfoService]
+                        providers: [get_userinfo_service_1.GetUserinfoService, update_user_info_service_1.UpdateUserInfoService]
                     }), 
-                    __metadata('design:paramtypes', [get_userinfo_service_1.GetUserinfoService])
+                    __metadata('design:paramtypes', [get_userinfo_service_1.GetUserinfoService, update_user_info_service_1.UpdateUserInfoService])
                 ], UserProfileComponent);
                 return UserProfileComponent;
             }());

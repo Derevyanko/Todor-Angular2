@@ -3,7 +3,7 @@
     <form class="user-profile" #uprofile="ngForm" >
         <div class="form-group">
             <input type="text" class="form-control"
-                   name="name" placeholder = "Name" maxlength="25" ngModel #name="ngModel" [(ngModel)]="user.name" required >
+                   name="name" placeholder="Name" maxlength="25" ngModel #name="ngModel" [(ngModel)]="user.name" required >
             <input type="text" class="form-control"
                    name="uname" placeholder="Username" maxlength="25" ngModel #uname="ngModel" [(ngModel)]="user.uid" required>
         </div>
@@ -11,8 +11,7 @@
             <input type="email" class="form-control"
                    name="email"  placeholder = "Email" maxlength="25" ngModel #email="ngModel" [(ngModel)]="user.emailid"
                    pattern="[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+" required >
-            <input type="tel" class="form-control"
-                   name="phone" placeholder = "Phone Numder" maxlength="25" ngModel #phone="ngModel" pattern="[0-9]{10}">
+            <input type="tel" class="form-control" name="phone" placeholder="Phone Numder" maxlength="25" ngModel #phone="ngModel">
         </div>
         <h4>Optional</h4>
         <textarea name="bio" class="form-control" placeholder="Bio"></textarea>
@@ -36,7 +35,7 @@
         <div class ="form-link">
         <a href="#" class="form-link">By signing up, you agree to Locify's Terms of Service and Privacy Policy</a></div>
         <div class="form-btn">
-            <button type="submit" class="btn">Submit</button>
+            <button type="submit" class="btn" (click)="update(user)">Submit</button>
         </div>
     </form>
 </div>

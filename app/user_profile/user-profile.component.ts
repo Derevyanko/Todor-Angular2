@@ -7,7 +7,8 @@ import {
     AbstractControl
 } from '@angular/forms';
 import { GetUserinfoService } from '../_services/get-userinfo.service';
-import { AddUser } from '../_models/adduser';
+import { UpdateUserInfoService } from '../_services/update-user-info.service';
+import { UpdateUser } from '../_models/updateuser';
 
 import {IMyOptions, IMyDateModel} from 'mydatepicker';
 
@@ -15,7 +16,7 @@ import {IMyOptions, IMyDateModel} from 'mydatepicker';
     moduleId: module.id,
     selector: 'user-profile',
     templateUrl: 'user-profile.component.html',
-    providers: [GetUserinfoService]
+    providers: [GetUserinfoService, UpdateUserInfoService]
 })
 export class UserProfileComponent implements OnInit {
 
@@ -28,11 +29,11 @@ export class UserProfileComponent implements OnInit {
 		event.date;
     }
 
-	user: AddUser = new AddUser();
+	user: UpdateUser = new UpdateUser();
 
 	currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
-	constructor(private getInfo: GetUserinfoService) {}
+	constructor(private getInfo: GetUserinfoService, private updateUserInfo: UpdateUserInfoService) {}
 
 	ngOnInit() {
 		if (localStorage.getItem('currentUser') && this.currentUser.auth === "native") {
@@ -44,9 +45,20 @@ export class UserProfileComponent implements OnInit {
 				});
 		} else if (localStorage.getItem('currentUser') && this.currentUser.auth === "social") {
 			let dog = this.currentUser.emailid.indexOf("@");
-			this.user.uid = this.currentUser.emailid.slice(0, dog);
 			this.user.name = this.currentUser.name;
+			this.user.uid = this.currentUser.emailid.slice(0, dog);
 			this.user.emailid = this.currentUser.emailid;
 		}
+	}
+
+	update(user) {
+		this.updateUserInfo.updateInfo(user)
+			.subscribe(
+			    data => {
+			        alert("Data updated successfully!");
+			    },
+			    error => {
+			        alert("Updated data failed!");
+			    });
 	}
 }

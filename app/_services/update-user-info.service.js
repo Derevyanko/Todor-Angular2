@@ -11,7 +11,7 @@ System.register(['@angular/core', '@angular/http', 'rxjs/Observable', 'rxjs/add/
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var core_1, http_1, Observable_1;
-    var GetUserinfoService;
+    var UpdateUserInfoService;
     return {
         setters:[
             function (core_1_1) {
@@ -27,23 +27,25 @@ System.register(['@angular/core', '@angular/http', 'rxjs/Observable', 'rxjs/add/
             function (_2) {},
             function (_3) {}],
         execute: function() {
-            GetUserinfoService = (function () {
-                function GetUserinfoService(http) {
+            UpdateUserInfoService = (function () {
+                function UpdateUserInfoService(http) {
                     this.http = http;
                 }
-                GetUserinfoService.prototype.getUserInfo = function (uid) {
-                    return this.http.get('http://104.196.125.63:9000/api/finduser?id=' + uid)
+                UpdateUserInfoService.prototype.updateInfo = function (obj) {
+                    var body = JSON.stringify(obj);
+                    var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+                    return this.http.post('http://104.196.125.63:9000/api/adduser', body, { headers: headers })
                         .map(function (resp) { return resp.json(); })
                         .catch(function (error) { return Observable_1.Observable.throw(error); });
                 };
-                GetUserinfoService = __decorate([
+                UpdateUserInfoService = __decorate([
                     core_1.Injectable(), 
                     __metadata('design:paramtypes', [http_1.Http])
-                ], GetUserinfoService);
-                return GetUserinfoService;
+                ], UpdateUserInfoService);
+                return UpdateUserInfoService;
             }());
-            exports_1("GetUserinfoService", GetUserinfoService);
+            exports_1("UpdateUserInfoService", UpdateUserInfoService);
         }
     }
 });
-//# sourceMappingURL=get-userinfo.service.js.map
+//# sourceMappingURL=update-user-info.service.js.map
