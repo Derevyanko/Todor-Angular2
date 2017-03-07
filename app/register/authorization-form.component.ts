@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import { AddUser } from '../_models/adduser';
-import { HttpAddUserService } from '../_services/http-add-user.service';
 import {
   NgForm,
   FormBuilder,
@@ -10,11 +8,15 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 
+import { AddUser } from '../_models/adduser';
+import { AlertService } from '../_services/alert.service';
+import { HttpAddUserService } from '../_services/http-add-user.service';
+
 @Component({
   moduleId: module.id,
   selector: 'authorization-form',
   templateUrl: 'authorization-form.component.html',
-  providers: [HttpAddUserService]
+  providers: [HttpAddUserService, AlertService]
 })
 export class  AuthorizationFormComponent {
 
@@ -22,17 +24,20 @@ export class  AuthorizationFormComponent {
 
   constructor(
     private httpAddUserService: HttpAddUserService,
-    private router: Router) {}
+    private router: Router,
+    private alertService: AlertService) {}
 
   submit(user) {
     this.httpAddUserService.postData(user)
         .subscribe(
           data => {
-            alert("Sign up success! Welcome " + user.name + "!");
-            this.router.navigate(['/search']);
+            this.alertService.success('Registration successful', true);
+            setTimeout(() => {
+              this.router.navigate(['/login']);
+            }, 3000);
           },
           error => {
-            alert("Registration is not success. Repeat please.");
+            this.alertService.error(error);
           });
   }
 }

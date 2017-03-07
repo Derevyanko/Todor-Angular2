@@ -1,4 +1,4 @@
-System.register(['@angular/core', '../_services/get-userinfo.service', '../_services/update-user-info.service', '../_models/updateuser'], function(exports_1, context_1) {
+System.register(['@angular/core', '../_services/alert.service', '../_services/get-userinfo.service', '../_services/update-user-info.service', '../_models/updateuser'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,12 +10,15 @@ System.register(['@angular/core', '../_services/get-userinfo.service', '../_serv
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, get_userinfo_service_1, update_user_info_service_1, updateuser_1;
+    var core_1, alert_service_1, get_userinfo_service_1, update_user_info_service_1, updateuser_1;
     var UserProfileComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
+            },
+            function (alert_service_1_1) {
+                alert_service_1 = alert_service_1_1;
             },
             function (get_userinfo_service_1_1) {
                 get_userinfo_service_1 = get_userinfo_service_1_1;
@@ -28,9 +31,10 @@ System.register(['@angular/core', '../_services/get-userinfo.service', '../_serv
             }],
         execute: function() {
             UserProfileComponent = (function () {
-                function UserProfileComponent(getInfo, updateUserInfo) {
+                function UserProfileComponent(getInfo, updateUserInfo, alertService) {
                     this.getInfo = getInfo;
                     this.updateUserInfo = updateUserInfo;
+                    this.alertService = alertService;
                     this.myDatePickerOptions = {
                         dateFormat: 'mm/dd/yyyy',
                         selectionTxtFontSize: '16px'
@@ -59,12 +63,12 @@ System.register(['@angular/core', '../_services/get-userinfo.service', '../_serv
                     }
                 };
                 UserProfileComponent.prototype.update = function (user) {
+                    var _this = this;
                     this.updateUserInfo.updateInfo(user)
                         .subscribe(function (data) {
-                        alert("Data updated successfully!");
+                        _this.alertService.success("Data updated successfully!", true);
                     }, function (error) {
-                        alert("Updated data failed!");
-                        console.log(user);
+                        _this.alertService.error("Updated data failed!", true);
                     });
                 };
                 UserProfileComponent = __decorate([
@@ -72,9 +76,9 @@ System.register(['@angular/core', '../_services/get-userinfo.service', '../_serv
                         moduleId: module.id,
                         selector: 'user-profile',
                         templateUrl: 'user-profile.component.html',
-                        providers: [get_userinfo_service_1.GetUserinfoService, update_user_info_service_1.UpdateUserInfoService]
+                        providers: [get_userinfo_service_1.GetUserinfoService, update_user_info_service_1.UpdateUserInfoService, alert_service_1.AlertService]
                     }), 
-                    __metadata('design:paramtypes', [get_userinfo_service_1.GetUserinfoService, update_user_info_service_1.UpdateUserInfoService])
+                    __metadata('design:paramtypes', [get_userinfo_service_1.GetUserinfoService, update_user_info_service_1.UpdateUserInfoService, alert_service_1.AlertService])
                 ], UserProfileComponent);
                 return UserProfileComponent;
             }());

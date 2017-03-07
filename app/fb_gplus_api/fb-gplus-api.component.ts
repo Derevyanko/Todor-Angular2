@@ -107,9 +107,6 @@ export class FbGplusApiComponent implements AfterViewInit {
 							}
 						})
 				});
-			}, 
-			(error) => {
-				alert(JSON.stringify(error, undefined, 2));
 			}
 		);
 	}
@@ -117,7 +114,6 @@ export class FbGplusApiComponent implements AfterViewInit {
 	checkStatus(userInfo) {
 		let token = this.randomToken.generateToken(40);
 		localStorage.setItem('currentUser', JSON.stringify({uid: userInfo.uid, name: userInfo.name, emailid: userInfo.emailid, token: token, auth: "social"}));
-		alert("Login success! Have a nice day!");
 		this.router.navigate(['/search']);
 	}
 

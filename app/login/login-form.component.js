@@ -1,4 +1,4 @@
-System.register(['@angular/core', '@angular/router', '../_services/http.service', '../_models/user'], function(exports_1, context_1) {
+System.register(['@angular/core', '@angular/router', '../_services/http.service', '../_services/alert.service', '../_models/user'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['@angular/core', '@angular/router', '../_services/http.service'
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, http_service_1, user_1;
+    var core_1, router_1, http_service_1, alert_service_1, user_1;
     var LoginFormComponent;
     return {
         setters:[
@@ -23,14 +23,18 @@ System.register(['@angular/core', '@angular/router', '../_services/http.service'
             function (http_service_1_1) {
                 http_service_1 = http_service_1_1;
             },
+            function (alert_service_1_1) {
+                alert_service_1 = alert_service_1_1;
+            },
             function (user_1_1) {
                 user_1 = user_1_1;
             }],
         execute: function() {
             LoginFormComponent = (function () {
-                function LoginFormComponent(httpService, router) {
+                function LoginFormComponent(httpService, router, alertService) {
                     this.httpService = httpService;
                     this.router = router;
+                    this.alertService = alertService;
                     this.user = new user_1.User();
                 }
                 LoginFormComponent.prototype.ngOnInit = function () {
@@ -41,12 +45,10 @@ System.register(['@angular/core', '@angular/router', '../_services/http.service'
                     this.httpService.login(user)
                         .then(function (data) {
                         if (data) {
-                            alert("Login success! Have a nice day!");
                             _this.router.navigate(['/search']);
                         }
                         else {
-                            alert("User is not registered!");
-                            _this.router.navigate(['/signin']);
+                            _this.alertService.error('Error: Username or password is incorrect', true);
                         }
                     });
                 };
@@ -55,9 +57,9 @@ System.register(['@angular/core', '@angular/router', '../_services/http.service'
                         moduleId: module.id,
                         selector: 'login-form',
                         templateUrl: 'login-form.component.html',
-                        providers: [http_service_1.HttpService]
+                        providers: [http_service_1.HttpService, alert_service_1.AlertService]
                     }), 
-                    __metadata('design:paramtypes', [http_service_1.HttpService, router_1.Router])
+                    __metadata('design:paramtypes', [http_service_1.HttpService, router_1.Router, alert_service_1.AlertService])
                 ], LoginFormComponent);
                 return LoginFormComponent;
             }());

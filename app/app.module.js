@@ -1,4 +1,4 @@
-System.register(['@angular/core', '@angular/platform-browser', '@angular/forms', '@angular/http', './app.routing', 'mydatepicker', './uploader/uploader.component', './_guards/guards', './app.component', './_directives/equal-validator.directive', './register/authorization-form.component', './login/login-form.component', './search_page/search-page.component', './about_page/about-page.component', './contact_us/contact-us-page.component', './not_found/not-found.component', './user_profile/user-profile.component', './business_profile/business-profile.component', './fb_gplus_api/fb-gplus-api.component', 'ng2-facebook-sdk'], function(exports_1, context_1) {
+System.register(['@angular/core', '@angular/platform-browser', '@angular/forms', '@angular/http', './app.routing', 'mydatepicker', './_directives/alert.component', './uploader/uploader.component', './_guards/guards', './app.component', './_directives/equal-validator.directive', './register/authorization-form.component', './login/login-form.component', './search_page/search-page.component', './about_page/about-page.component', './contact_us/contact-us-page.component', './not_found/not-found.component', './user_profile/user-profile.component', './business_profile/business-profile.component', './fb_gplus_api/fb-gplus-api.component', 'ng2-facebook-sdk'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['@angular/core', '@angular/platform-browser', '@angular/forms',
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, platform_browser_1, forms_1, http_1, app_routing_1, mydatepicker_1, uploader_component_1, guards_1, app_component_1, equal_validator_directive_1, authorization_form_component_1, login_form_component_1, search_page_component_1, about_page_component_1, contact_us_page_component_1, not_found_component_1, user_profile_component_1, business_profile_component_1, fb_gplus_api_component_1, ng2_facebook_sdk_1;
+    var core_1, platform_browser_1, forms_1, http_1, app_routing_1, mydatepicker_1, alert_component_1, uploader_component_1, guards_1, app_component_1, equal_validator_directive_1, authorization_form_component_1, login_form_component_1, search_page_component_1, about_page_component_1, contact_us_page_component_1, not_found_component_1, user_profile_component_1, business_profile_component_1, fb_gplus_api_component_1, ng2_facebook_sdk_1;
     var AppModule;
     return {
         setters:[
@@ -31,6 +31,9 @@ System.register(['@angular/core', '@angular/platform-browser', '@angular/forms',
             },
             function (mydatepicker_1_1) {
                 mydatepicker_1 = mydatepicker_1_1;
+            },
+            function (alert_component_1_1) {
+                alert_component_1 = alert_component_1_1;
             },
             function (uploader_component_1_1) {
                 uploader_component_1 = uploader_component_1_1;
@@ -88,6 +91,7 @@ System.register(['@angular/core', '@angular/platform-browser', '@angular/forms',
                             mydatepicker_1.MyDatePickerModule
                         ],
                         declarations: [
+                            alert_component_1.AlertComponent,
                             equal_validator_directive_1.EqualValidator,
                             app_component_1.AppComponent,
                             login_form_component_1.LoginFormComponent,

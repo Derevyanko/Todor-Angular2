@@ -5,6 +5,7 @@ import {HttpModule}   from '@angular/http';
 import {ROUTING}        from './app.routing';
 import { MyDatePickerModule } from 'mydatepicker';
 
+import { AlertComponent } from './_directives/alert.component';
 import {UploaderFileComponent} from './uploader/uploader.component'
 import {AuthGuard} from './_guards/guards';
 import {AppComponent}  from './app.component';
@@ -30,6 +31,7 @@ import { FacebookService } from 'ng2-facebook-sdk';
         MyDatePickerModule
     ],
     declarations: [
+        AlertComponent,
         EqualValidator,
         AppComponent,
         LoginFormComponent,

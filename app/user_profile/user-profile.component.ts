@@ -6,6 +6,7 @@ import {
     Validators,
     AbstractControl
 } from '@angular/forms';
+import { AlertService } from '../_services/alert.service';
 import { GetUserinfoService } from '../_services/get-userinfo.service';
 import { UpdateUserInfoService } from '../_services/update-user-info.service';
 import { UpdateUser } from '../_models/updateuser';
@@ -16,7 +17,7 @@ import {IMyOptions, IMyDateModel} from 'mydatepicker';
     moduleId: module.id,
     selector: 'user-profile',
     templateUrl: 'user-profile.component.html',
-    providers: [GetUserinfoService, UpdateUserInfoService]
+    providers: [GetUserinfoService, UpdateUserInfoService, AlertService]
 })
 export class UserProfileComponent implements OnInit {
 
@@ -33,7 +34,10 @@ export class UserProfileComponent implements OnInit {
 
 	currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
-	constructor(private getInfo: GetUserinfoService, private updateUserInfo: UpdateUserInfoService) {}
+	constructor(
+		private getInfo: GetUserinfoService,
+		private updateUserInfo: UpdateUserInfoService,
+		private alertService: AlertService) {}
 
 	ngOnInit() {
 		if (localStorage.getItem('currentUser') && this.currentUser.auth === "native") {
@@ -55,10 +59,10 @@ export class UserProfileComponent implements OnInit {
 		this.updateUserInfo.updateInfo(user)
 			.subscribe(
 			    data => {
-			        alert("Data updated successfully!");
+			    	this.alertService.success("Data updated successfully!", true);
 			    },
 			    error => {
-			        alert("Updated data failed!");
+			    	this.alertService.error("Updated data failed!", true);
 			    });
 	}
 }

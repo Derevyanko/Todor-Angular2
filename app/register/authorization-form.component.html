@@ -3,6 +3,7 @@
   <div class = "close">
     <a [routerLink]="['']"><img src ="../img/close.png" alt="close"/></a>
   </div>
+  <alert></alert>
   <form #f="ngForm" novalidate>
     <div class="form-group">
       <input placeholder = "Full Name" type="text" class="form-control" name="username" [(ngModel)]="user.name"

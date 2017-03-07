@@ -120,14 +120,11 @@ System.register(['@angular/core', '@angular/router', 'ng2-facebook-sdk', '../_se
                                 }
                             });
                         });
-                    }, function (error) {
-                        alert(JSON.stringify(error, undefined, 2));
                     });
                 };
                 FbGplusApiComponent.prototype.checkStatus = function (userInfo) {
                     var token = this.randomToken.generateToken(40);
                     localStorage.setItem('currentUser', JSON.stringify({ uid: userInfo.uid, name: userInfo.name, emailid: userInfo.emailid, token: token, auth: "social" }));
-                    alert("Login success! Have a nice day!");
                     this.router.navigate(['/search']);
                 };
                 FbGplusApiComponent.prototype.ngAfterViewInit = function () {

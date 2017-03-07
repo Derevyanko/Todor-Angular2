@@ -9,20 +9,22 @@ import {
     AbstractControl
 } from '@angular/forms';
 import { HttpService } from '../_services/http.service';
+import { AlertService } from '../_services/alert.service';
 import { User } from '../_models/user';
 
 @Component({
     moduleId: module.id,
     selector: 'login-form',
     templateUrl: 'login-form.component.html',
-    providers: [HttpService]
+    providers: [HttpService, AlertService]
 })
 export class LoginFormComponent implements OnInit {
     user: User = new User();
 
     constructor(
         private httpService: HttpService,
-        private router: Router) {}
+        private router: Router,
+        private alertService: AlertService) {}
 
     ngOnInit() {
         this.httpService.logout();
@@ -33,11 +35,9 @@ export class LoginFormComponent implements OnInit {
             .then(
                 data => {
                     if (data) {
-                        alert("Login success! Have a nice day!");
                         this.router.navigate(['/search']);
                     } else {
-                        alert("User is not registered!");
-                        this.router.navigate(['/signin']);
+                        this.alertService.error('Error: Username or password is incorrect', true);
                     }
                 }
             );
